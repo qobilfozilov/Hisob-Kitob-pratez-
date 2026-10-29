@@ -1,0 +1,777 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1f4e8c">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Protez Hisob">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Protez Hisob</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout: header (title, language, month), three bottom tabs. Add = one numbered entry card + recent entries. Report = month total, doctor tabs, table, total bar with PDF. Settings = lab details, currency, backup. Background: faint outlined teeth. */
+:root {
+  --bg: #eef1f6;
+  --surface: #ffffff;
+  --surface-2: #f4f6fa;
+  --ink: #131c2b;
+  --muted: #586579;
+  --line: #d3dae6;
+  --accent: #1f4e8c;
+  --accent-ink: #ffffff;
+  --soft: #dde7f5;
+  --bad: #b0322a;
+  --warn-bg: #fbecd0;
+  --warn-ink: #7a4800;
+  --pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='170' height='170' viewBox='0 0 170 170'%3E%3Cg fill='none' stroke='%231f4e8c' stroke-opacity='.1' stroke-width='1.5' stroke-linejoin='round' stroke-linecap='round'%3E%3Cpath transform='translate(18 12) scale(.36)' d='M30 22C30 14 40 12 50 17C60 12 70 14 70 22C70 34 66 40 65 52C64 66 62 84 56 84C51 84 52 66 50 62C48 66 49 84 44 84C38 84 36 66 35 52C34 40 30 34 30 22Z'/%3E%3Cpath transform='translate(128 66) rotate(24) scale(.3)' d='M30 22C30 14 40 12 50 17C60 12 70 14 70 22C70 34 66 40 65 52C64 66 62 84 56 84C51 84 52 66 50 62C48 66 49 84 44 84C38 84 36 66 35 52C34 40 30 34 30 22Z'/%3E%3Cpath transform='translate(54 128) rotate(-18) scale(.28)' d='M30 22C30 14 40 12 50 17C60 12 70 14 70 22C70 34 66 40 65 52C64 66 62 84 56 84C51 84 52 66 50 62C48 66 49 84 44 84C38 84 36 66 35 52C34 40 30 34 30 22Z'/%3E%3Cpath d='M92 30v10M87 35h10M30 100v8M26 104h8M146 132v8M142 136h8'/%3E%3Ccircle cx='100' cy='96' r='2'/%3E%3Ccircle cx='20' cy='150' r='1.6'/%3E%3Ccircle cx='150' cy='20' r='1.6'/%3E%3C/g%3E%3C/svg%3E");
+  --font-display: "Familjen Grotesk", "Segoe UI", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e141f; --surface: #161e2d; --surface-2: #1b2536; --ink: #e6ecf6; --muted: #94a3b8;
+    --line: #28344a; --accent: #7fb0f0; --accent-ink: #08172e; --soft: #1d2f4b; --bad: #f08a80;
+    --warn-bg: #36290f; --warn-ink: #e6b04f; color-scheme: dark;
+    --pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='170' height='170' viewBox='0 0 170 170'%3E%3Cg fill='none' stroke='%237fb0f0' stroke-opacity='.09' stroke-width='1.5' stroke-linejoin='round' stroke-linecap='round'%3E%3Cpath transform='translate(18 12) scale(.36)' d='M30 22C30 14 40 12 50 17C60 12 70 14 70 22C70 34 66 40 65 52C64 66 62 84 56 84C51 84 52 66 50 62C48 66 49 84 44 84C38 84 36 66 35 52C34 40 30 34 30 22Z'/%3E%3Cpath transform='translate(128 66) rotate(24) scale(.3)' d='M30 22C30 14 40 12 50 17C60 12 70 14 70 22C70 34 66 40 65 52C64 66 62 84 56 84C51 84 52 66 50 62C48 66 49 84 44 84C38 84 36 66 35 52C34 40 30 34 30 22Z'/%3E%3Cpath transform='translate(54 128) rotate(-18) scale(.28)' d='M30 22C30 14 40 12 50 17C60 12 70 14 70 22C70 34 66 40 65 52C64 66 62 84 56 84C51 84 52 66 50 62C48 66 49 84 44 84C38 84 36 66 35 52C34 40 30 34 30 22Z'/%3E%3Cpath d='M92 30v10M87 35h10M30 100v8M26 104h8M146 132v8M142 136h8'/%3E%3Ccircle cx='100' cy='96' r='2'/%3E%3Ccircle cx='20' cy='150' r='1.6'/%3E%3Ccircle cx='150' cy='20' r='1.6'/%3E%3C/g%3E%3C/svg%3E");
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e141f; --surface: #161e2d; --surface-2: #1b2536; --ink: #e6ecf6; --muted: #94a3b8;
+  --line: #28344a; --accent: #7fb0f0; --accent-ink: #08172e; --soft: #1d2f4b; --bad: #f08a80;
+  --warn-bg: #36290f; --warn-ink: #e6b04f; color-scheme: dark;
+  --pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='170' height='170' viewBox='0 0 170 170'%3E%3Cg fill='none' stroke='%237fb0f0' stroke-opacity='.09' stroke-width='1.5' stroke-linejoin='round' stroke-linecap='round'%3E%3Cpath transform='translate(18 12) scale(.36)' d='M30 22C30 14 40 12 50 17C60 12 70 14 70 22C70 34 66 40 65 52C64 66 62 84 56 84C51 84 52 66 50 62C48 66 49 84 44 84C38 84 36 66 35 52C34 40 30 34 30 22Z'/%3E%3Cpath transform='translate(128 66) rotate(24) scale(.3)' d='M30 22C30 14 40 12 50 17C60 12 70 14 70 22C70 34 66 40 65 52C64 66 62 84 56 84C51 84 52 66 50 62C48 66 49 84 44 84C38 84 36 66 35 52C34 40 30 34 30 22Z'/%3E%3Cpath transform='translate(54 128) rotate(-18) scale(.28)' d='M30 22C30 14 40 12 50 17C60 12 70 14 70 22C70 34 66 40 65 52C64 66 62 84 56 84C51 84 52 66 50 62C48 66 49 84 44 84C38 84 36 66 35 52C34 40 30 34 30 22Z'/%3E%3Cpath d='M92 30v10M87 35h10M30 100v8M26 104h8M146 132v8M142 136h8'/%3E%3Ccircle cx='100' cy='96' r='2'/%3E%3Ccircle cx='20' cy='150' r='1.6'/%3E%3Ccircle cx='150' cy='20' r='1.6'/%3E%3C/g%3E%3C/svg%3E");
+}
+* { box-sizing: border-box; }
+body {
+  background-color: var(--bg); background-image: var(--pattern); background-size: 170px 170px;
+  color: var(--ink);
+  font-family: var(--font-body); font-size: 15px; line-height: 1.45;
+  padding-block: 18px 96px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+button, input { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.top { display: flex; flex-wrap: wrap; gap: 10px 12px; justify-content: space-between; align-items: center; }
+h1 { font-family: var(--font-display); font-size: 28px; line-height: 1.05; margin: 0; letter-spacing: -.01em; }
+.bar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.month { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 2px; gap: 0; }
+.month b { font-family: var(--font-display); font-size: 17px; min-width: 124px; text-align: center; }
+.sq { width: 38px; height: 38px; border: 0; background: transparent; border-radius: 8px; font-size: 20px; line-height: 1; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--surface); }
+.seg button { border: 0; background: transparent; padding: 0 12px; height: 40px; font-family: var(--font-mono); font-size: 13px; color: var(--muted); }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); font-weight: 600; }
+.seg.small button { height: 32px; padding: 0 10px; font-size: 12px; }
+
+.btn { border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 10px 16px; font-weight: 500; }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn.danger { color: var(--bad); border-color: var(--bad); }
+.btn.link { border: 0; background: transparent; color: var(--accent); padding: 4px 6px; font-size: 13px; }
+.btn:disabled { opacity: .5; cursor: default; }
+
+.banner { background: var(--warn-bg); color: var(--warn-ink); border-radius: 10px; padding: 10px 14px; display: flex; flex-wrap: wrap; gap: 8px 12px; justify-content: space-between; align-items: center; font-size: 14px; }
+.banner .btn { background: transparent; border-color: currentColor; color: inherit; padding: 6px 12px; }
+
+.docs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 2px; }
+.doc { flex: 0 0 auto; min-width: 150px; max-width: 240px; text-align: left; border: 1px solid var(--line); background: var(--surface); border-radius: 10px; padding: 9px 12px; display: flex; flex-direction: column; gap: 2px; }
+.doc[aria-pressed="true"] { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); background: var(--soft); }
+.doc span { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.doc small { font-family: var(--font-mono); font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 16px; box-shadow: 0 1px 2px rgba(15, 30, 60, .05); }
+.card h2 { font-family: var(--font-display); font-size: 19px; margin: 0; }
+.step { display: flex; flex-direction: column; gap: 10px; }
+.step + .step { border-top: 1px dashed var(--line); padding-top: 14px; }
+.sh { display: flex; align-items: center; gap: 8px; font-family: var(--font-display); font-weight: 600; font-size: 15px; }
+.sh i { font-style: normal; font-family: var(--font-mono); font-size: 12px; width: 22px; height: 22px; border-radius: 50%; background: var(--soft); color: var(--accent); display: grid; place-items: center; font-weight: 500; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+@media (max-width: 520px) { .row2 { grid-template-columns: 1fr; } .row3 { grid-template-columns: 1fr 1fr; } .row3 > :first-child { grid-column: span 2; } }
+.fld { display: flex; flex-direction: column; gap: 4px; font-size: 12.5px; color: var(--muted); font-weight: 500; min-width: 0; }
+.lbl { font-size: 12.5px; color: var(--muted); font-weight: 500; display: flex; justify-content: space-between; align-items: center; gap: 8px; min-height: 28px; flex-wrap: wrap; }
+.lbl b { color: var(--ink); font-family: var(--font-mono); font-weight: 500; font-size: 13px; overflow-wrap: anywhere; text-align: right; }
+input { width: 100%; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 10px 11px; font-size: 16px; color: var(--ink); }
+.stepper { display: grid; grid-template-columns: 44px 1fr 44px; gap: 4px; }
+.stepper button { border: 1px solid var(--line); background: var(--surface-2); border-radius: 8px; font-size: 20px; line-height: 1; }
+.stepper input { text-align: center; }
+
+.teeth { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 4px; }
+@media (min-width: 560px) { .teeth { grid-template-columns: 1fr 1fr; gap: 10px 18px; } }
+.quad small { display: block; font-family: var(--font-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.qrow { display: grid; grid-template-columns: repeat(8, 1fr); gap: 4px; }
+.t { height: 40px; min-width: 0; padding: 0; border: 1px solid var(--line); background: var(--surface-2); border-radius: 8px; font-family: var(--font-mono); font-size: 13px; font-variant-numeric: tabular-nums; }
+.t[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 600; }
+
+.types { display: flex; flex-wrap: wrap; gap: 8px; }
+.ty { border: 1px solid var(--line); background: var(--surface-2); border-radius: 999px; padding: 10px 16px; font-weight: 500; min-height: 44px; }
+.ty.sm { min-height: 34px; padding: 5px 12px; font-size: 13.5px; }
+.ty[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.ty.other { border-style: dashed; }
+.jaws { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.jaws .ty { border-radius: 10px; text-align: center; padding: 10px 8px; }
+
+.acts { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; align-items: center; }
+.acts .sum { margin-right: auto; font-variant-numeric: tabular-nums; font-size: 16px; font-weight: 600; }
+
+.sec-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.sec-head h2 { font-family: var(--font-display); font-size: 20px; margin: 0; overflow-wrap: anywhere; }
+.note { color: var(--muted); font-size: 13px; margin: 0; }
+.tablewrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+table { border-collapse: collapse; width: 100%; min-width: 640px; font-variant-numeric: tabular-nums; }
+th, td { padding: 9px 11px; text-align: left; border-bottom: 1px solid var(--line); font-size: 14px; vertical-align: top; }
+th { font-family: var(--font-mono); font-weight: 500; font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.r { text-align: right; }
+tbody tr { cursor: pointer; }
+tbody tr:hover { background: var(--surface-2); }
+td.mono { font-family: var(--font-mono); font-size: 13px; }
+.totalbar { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px; }
+.totalbar .cap { font-size: 13px; color: var(--muted); }
+.totalbar .big { font-family: var(--font-display); font-size: 28px; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.pdfbox { display: flex; flex-direction: column; gap: 8px; align-items: stretch; }
+.pdfbox .pl { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--muted); justify-content: space-between; }
+.empty { background: var(--surface); border: 1px dashed var(--line); border-radius: 12px; padding: 20px 18px; color: var(--muted); display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+.empty b { color: var(--ink); font-family: var(--font-display); font-size: 18px; display: block; }
+.monthsum { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 12px; }
+.monthsum .big { font-family: var(--font-display); font-size: 26px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.recent { display: flex; flex-direction: column; gap: 8px; }
+.rc { text-align: left; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; }
+.rc b { font-weight: 600; overflow-wrap: anywhere; }
+.rc span { color: var(--muted); font-size: 13px; overflow-wrap: anywhere; }
+.rc .amt { grid-column: 2; grid-row: 1 / span 2; align-self: center; font-variant-numeric: tabular-nums; font-weight: 600; }
+.cur { display: inline-flex; gap: 6px; }
+.cur button { border: 1px solid var(--line); background: var(--surface-2); border-radius: 999px; padding: 7px 16px; color: var(--muted); }
+.cur button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.nav { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; display: flex; background: var(--surface); border-top: 1px solid var(--line);
+  padding: 0 env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px); }
+.nav button { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 9px 4px 8px; border: 0; background: transparent; color: var(--muted); font-size: 12px; }
+.nav button svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.nav button[aria-current="page"] { color: var(--accent); font-weight: 600; }
+.toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(80px + env(safe-area-inset-bottom, 0px)); z-index: 30; background: var(--ink); color: var(--bg); padding: 9px 16px; border-radius: 8px; font-size: 14px; max-width: 90%; }
+</style>
+<style>html { color-scheme: light dark; } body { margin: 0; }</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="top">
+    <h1 id="title"></h1>
+    <div class="bar">
+      <div class="seg" role="group" aria-label="Til / Язык" id="langseg"></div>
+      <div class="bar month" role="group">
+        <button class="sq" id="prev" aria-label="‹">&lsaquo;</button>
+        <b id="mlabel"></b>
+        <button class="sq" id="next" aria-label="›">&rsaquo;</button>
+      </div>
+    </div>
+  </div>
+  <div id="main"><p class="note">…</p></div>
+</div>
+<nav class="nav" id="nav"></nav>
+<div id="toast" class="toast" hidden></div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ---------- texts: Uzbek (Latin) and Russian ---------- */
+  var I18N = {
+    uz: {
+      months: ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentabr", "Oktabr", "Noyabr", "Dekabr"],
+      title: "Protez hisobi", tab_add: "Qo'shish", tab_report: "Hisob", tab_settings: "Sozlamalar",
+      settings: "Sozlamalar", cur_label: "Pul birligi", cur_sum: "so'm",
+      banner: "PDF hisobotning tepasida laboratoriya nomi va telefon raqami chiqishi uchun avval Sozlamalarni to'ldiring.", fill: "Sozlash",
+      lab_name: "Laboratoriya nomi", phone: "Telefon", address: "Manzil (ixtiyoriy)", save: "Saqlash",
+      backup: "Zaxira nusxa", backup_dl: "Yuklab olish", backup_restore: "Tiklash", backup_note: "Ma'lumotlar shu telefonda saqlanadi. Vaqti-vaqti bilan zaxira nusxa oling.",
+      works_money: "{n} ta ish · {sum}", doctor: "Doktor yoki klinika", patient: "Bemor ismi",
+      new_work: "Yangi ish", edit_work: "Ishni tahrirlash", step1: "Doktor va bemor", step2: "Ish", step3: "Soni va narxi",
+      jaw: "Qaysi jag", jaw_up: "Yuqori jag", jaw_low: "Pastki jag", jaw_both: "Ikkala jag",
+      teeth_toggle: "Tishlarni belgilash (ixtiyoriy)", teeth_hide: "Tishlarni yashirish", clear: "Tozalash",
+      q1: "Yuqori o'ng", q2: "Yuqori chap", q3: "Pastki chap", q4: "Pastki o'ng",
+      type: "Ish turi", other: "Boshqa…", type_ph: "Ish turini yozing",
+      ty_qisman: "Qisman olinadigan protez", ty_toliq: "To'liq olinadigan protez", ty_bioplast: "Bioplast", ty_termoplast: "Termoplast",
+      ty_kapalak: "Kapalak mikroprotez", ty_bugel: "Bugel protez", ty_attachment: "Attachmentli protez", ty_tamir: "Ta'mirlash", ty_qoshiq: "Individual qoshiq",
+      date: "Sana", qty: "Soni", price: "1 dona narxi ({cur})", sum: "Summa",
+      add: "Qo'shish", cancel: "Bekor", del: "O'chirish", del_sure: "Aniq o'chirilsinmi?",
+      recent: "Oxirgi qo'shilganlar", recent_hint: "Tahrirlash uchun bosing",
+      month_total: "Oy bo'yicha jami", add_first: "Ish qo'shish",
+      empty_t: "{month} uchun ish kiritilmagan", empty_p: "Birinchi ishni \"Qo'shish\" bo'limida kiriting. Ishlar doktor yoki klinika bo'yicha guruhlanadi, oy oxirida jami hisob PDF bo'lib tayyor bo'ladi.",
+      th_date: "Sana", th_patient: "Bemor", th_formula: "Formula", th_type: "Ish turi", th_qty: "Soni", th_price: "Narxi", th_sum: "Summa",
+      rows_note: "{n} ta ish · qatorni bossangiz tahrirlanadi", total_cap: "{doc} · {month} · jami {q} dona",
+      pdf_btn: "PDF hisob yaratish", pdf_busy: "Tayyorlanmoqda…", pdf_lang: "PDF tili", pdf_na: "PDF saqlash bu ko'rinishda mavjud emas.",
+      pdf_open: "PDF tushmasa:", pdf_open_a: "PDF'ni brauzerda ochish",
+      t_added: "Qo'shildi", t_saved: "Saqlandi", t_deleted: "O'chirildi", t_type: "Ish turini tanlang", t_set_saved: "Sozlamalar saqlandi",
+      t_pdf_ok: "PDF tayyor. Doktorga Telegram yoki boshqa ilova orqali yuboring.", t_pdf_fail: "PDF saqlanmadi", t_need_set: "Avval laboratoriya nomi va telefon raqamini kiriting.",
+      t_restored: "Tiklandi: {n} ta ish", t_bad_file: "Zaxira fayli noto'g'ri", t_fail: "Saqlanmadi",
+      p_doc_title: "Hisob-kitob", p_doctor: "Doktor / klinika", p_period: "Davr", p_date: "Hisob sanasi", p_qty_total: "Jami ishlar soni: {n} dona", p_total: "Oy uchun jami to'lov", p_phone: "Tel", p_file: "Hisob", p_who: "doktor"
+    },
+    ru: {
+      months: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
+      title: "Учёт протезов", tab_add: "Добавить", tab_report: "Счёт", tab_settings: "Настройки",
+      settings: "Настройки", cur_label: "Валюта", cur_sum: "сум",
+      banner: "Чтобы название лаборатории и телефон выводились в шапке PDF, сначала заполните Настройки.", fill: "Заполнить",
+      lab_name: "Название лаборатории", phone: "Телефон", address: "Адрес (необязательно)", save: "Сохранить",
+      backup: "Резервная копия", backup_dl: "Скачать", backup_restore: "Восстановить", backup_note: "Данные хранятся на этом телефоне. Периодически делайте резервную копию.",
+      works_money: "работ: {n} · {sum}", doctor: "Врач или клиника", patient: "Имя пациента",
+      new_work: "Новая работа", edit_work: "Редактирование работы", step1: "Врач и пациент", step2: "Работа", step3: "Количество и цена",
+      jaw: "Какая челюсть", jaw_up: "Верхняя челюсть", jaw_low: "Нижняя челюсть", jaw_both: "Обе челюсти",
+      teeth_toggle: "Отметить зубы (необязательно)", teeth_hide: "Скрыть зубы", clear: "Очистить",
+      q1: "Верхние правые", q2: "Верхние левые", q3: "Нижние левые", q4: "Нижние правые",
+      type: "Вид работы", other: "Другое…", type_ph: "Введите вид работы",
+      ty_qisman: "Частичный съёмный протез", ty_toliq: "Полный съёмный протез", ty_bioplast: "Биопласт", ty_termoplast: "Термопласт",
+      ty_kapalak: "Микропротез «бабочка»", ty_bugel: "Бюгельный протез", ty_attachment: "Протез с аттачменами", ty_tamir: "Ремонт", ty_qoshiq: "Индивидуальная ложка",
+      date: "Дата", qty: "Кол-во", price: "Цена за 1 шт. ({cur})", sum: "Сумма",
+      add: "Добавить", cancel: "Отмена", del: "Удалить", del_sure: "Точно удалить?",
+      recent: "Недавно добавленные", recent_hint: "Нажмите, чтобы изменить",
+      month_total: "Итого за месяц", add_first: "Добавить работу",
+      empty_t: "За {month} работ нет", empty_p: "Введите первую работу на вкладке «Добавить». Работы группируются по врачу или клинике, а в конце месяца общий счёт готов в виде PDF.",
+      th_date: "Дата", th_patient: "Пациент", th_formula: "Формула", th_type: "Вид работы", th_qty: "Кол-во", th_price: "Цена", th_sum: "Сумма",
+      rows_note: "работ: {n} · нажмите на строку, чтобы изменить", total_cap: "{doc} · {month} · всего {q} шт.",
+      pdf_btn: "Создать PDF-счёт", pdf_busy: "Готовится…", pdf_lang: "Язык PDF", pdf_na: "Сохранение PDF здесь недоступно.",
+      pdf_open: "Если PDF не скачался:", pdf_open_a: "открыть PDF в браузере",
+      t_added: "Добавлено", t_saved: "Сохранено", t_deleted: "Удалено", t_type: "Выберите вид работы", t_set_saved: "Настройки сохранены",
+      t_pdf_ok: "PDF готов. Отправьте его врачу через Telegram или другое приложение.", t_pdf_fail: "PDF не сохранён", t_need_set: "Сначала введите название лаборатории и телефон.",
+      t_restored: "Восстановлено работ: {n}", t_bad_file: "Файл резервной копии повреждён", t_fail: "Не сохранено",
+      p_doc_title: "Счёт", p_doctor: "Врач / клиника", p_period: "Период", p_date: "Дата счёта", p_qty_total: "Всего работ: {n} шт.", p_total: "Итого к оплате за месяц", p_phone: "Тел", p_file: "Schet", p_who: "vrach"
+    }
+  };
+  var TYPE_KEYS = ["qisman", "toliq", "bioplast", "termoplast", "kapalak", "bugel", "attachment", "tamir", "qoshiq"];
+  var TYPE_ALIAS = { akril: "qisman", candulor: "toliq" };
+  var QUADS = [
+    ["q1", [18, 17, 16, 15, 14, 13, 12, 11]],
+    ["q2", [21, 22, 23, 24, 25, 26, 27, 28]],
+    ["q4", [48, 47, 46, 45, 44, 43, 42, 41]],
+    ["q3", [31, 32, 33, 34, 35, 36, 37, 38]]
+  ];
+  var ORDER = []; [[18, 11], [21, 28], [48, 41], [31, 38]].forEach(function (q) {
+    var a = q[0], b = q[1], st = a < b ? 1 : -1;
+    for (var n = a; n !== b + st; n += st) ORDER.push(n);
+  });
+  var ICONS = {
+    add: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>',
+    report: '<svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h7"/></svg>',
+    settings: '<svg viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg>'
+  };
+  var COL = "hisob";
+  var LS_ROWS = "protez-hisob-rows-v1", LS_SET = "protez-hisob-set-v1", LS_LANG = "protez-hisob-lang-v1";
+
+  var lang = "uz";
+  try { var sl = localStorage.getItem(LS_LANG); if (sl === "uz" || sl === "ru") lang = sl; else if (/^ru/i.test(navigator.language || "")) lang = "ru"; } catch (e) {}
+  function tr(L, k, v) {
+    var s = (I18N[L] && I18N[L][k] != null) ? I18N[L][k] : I18N.uz[k];
+    if (s == null) return k;
+    if (v) Object.keys(v).forEach(function (x) { s = s.split("{" + x + "}").join(v[x]); });
+    return s;
+  }
+  function t(k, v) { return tr(lang, k, v); }
+
+  var rows = [], settings = { labName: "", phone: "", address: "", cur: "so'm" };
+  var db = null, ready = false, setReady = false, downloads = null;
+  var C = window.claude, inClaude = !!(C && C.use);
+  var now = new Date();
+  var ui = { tab: "add", returnTab: "add", month: now.getFullYear() + "-" + pad(now.getMonth() + 1), doctor: "", editId: "", pendingDel: false, busy: false, pdfLang: null, draft: null, lastUrl: "" };
+  ui.draft = newDraft("", null);
+
+  function $(s) { return document.querySelector(s); }
+  function pad(n) { return String(n).padStart(2, "0"); }
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+  function fmt(n) {
+    n = Number(n) || 0; var neg = n < 0; n = Math.abs(n);
+    var s = Math.abs(n - Math.round(n)) < 0.005 ? String(Math.round(n)) : n.toFixed(2);
+    var p = s.split("."); p[0] = p[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+    return (neg ? "-" : "") + p.join(".");
+  }
+  function moneyL(L, n) { return settings.cur === "$" ? "$" + fmt(n) : fmt(n) + " " + tr(L, "cur_sum"); }
+  function money(n) { return moneyL(lang, n); }
+  function today() { var d = new Date(); return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()); }
+  function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
+  function sum(r) { return (Number(r.qty) || 0) * (Number(r.price) || 0); }
+  function dm(iso) { var p = (iso || "").split("-"); return p.length === 3 ? p[2] + "." + p[1] : ""; }
+  function monthLabelL(L, key) { var p = key.split("-"); return I18N[L].months[Number(p[1]) - 1] + " " + p[0]; }
+  function monthLabel(key) { return monthLabelL(lang, key); }
+  function toast(msg) { var el = $("#toast"); el.textContent = msg; el.hidden = false; clearTimeout(toast.t); toast.t = setTimeout(function () { el.hidden = true; }, 3200); }
+  function teethStr(teeth) { return (teeth || []).slice().sort(function (a, b) { return ORDER.indexOf(a) - ORDER.indexOf(b); }).join(", "); }
+  function typeLabel(L, ty) { ty = TYPE_ALIAS[ty] || ty; return TYPE_KEYS.indexOf(ty) >= 0 ? tr(L, "ty_" + ty) : ty; }
+  function formulaText(L, r) {
+    var parts = [];
+    if (r.jaw) parts.push(tr(L, "jaw_" + r.jaw));
+    var ts = teethStr(r.teeth); if (ts) parts.push(r.jaw ? "(" + ts + ")" : ts);
+    return parts.join(" ");
+  }
+  function norm(r) { if (r && TYPE_ALIAS[r.type]) r.type = TYPE_ALIAS[r.type]; return r; }
+  function newDraft(doctor, date) {
+    return { id: "", doctor: doctor || "", patient: "", jaw: "", teeth: [], teethOpen: false, type: "", custom: false, qty: 1, qtyTouched: false, price: "", date: date || "" };
+  }
+  function defaultDate() { var d = today(); return d.slice(0, 7) === ui.month ? d : ui.month + "-01"; }
+  function needSettings() { return !settings.labName || !settings.phone; }
+
+  /* ---------- data: shared db inside Claude, otherwise this device ---------- */
+  function lsLoad() {
+    try { rows = (JSON.parse(localStorage.getItem(LS_ROWS)) || []).map(norm); } catch (e) { rows = []; }
+    try { var s = JSON.parse(localStorage.getItem(LS_SET)); if (s) settings = Object.assign(settings, s); } catch (e) {}
+  }
+  function lsSave() { try { localStorage.setItem(LS_ROWS, JSON.stringify(rows)); localStorage.setItem(LS_SET, JSON.stringify(settings)); } catch (e) {} }
+  function saveRow(r) {
+    if (db) return db.collection(COL).doc(r.id).set(r).catch(function (e) { toast(t("t_fail") + " (" + ((e && e.code) || "!") + ")"); });
+    var i = rows.findIndex(function (x) { return x.id === r.id; });
+    if (i >= 0) rows[i] = r; else rows.push(r);
+    lsSave(); render(); return Promise.resolve();
+  }
+  function removeRow(id) {
+    if (db) return db.collection(COL).doc(id).delete().catch(function (e) { toast(t("t_fail") + " (" + ((e && e.code) || "!") + ")"); });
+    rows = rows.filter(function (x) { return x.id !== id; }); lsSave(); render(); return Promise.resolve();
+  }
+  function saveSettings(s) {
+    settings = Object.assign({}, settings, s);
+    if (db) return db.doc("settings/main").set(settings).catch(function (e) { toast(t("t_fail") + " (" + ((e && e.code) || "!") + ")"); });
+    lsSave(); render(); return Promise.resolve();
+  }
+  function inMonth() { return rows.filter(function (r) { return (r.date || "").slice(0, 7) === ui.month; }); }
+  function doctorsOf(list) {
+    var m = {};
+    list.forEach(function (r) { var k = r.doctor; (m[k] || (m[k] = { name: k, n: 0, total: 0 })); m[k].n++; m[k].total += sum(r); });
+    return Object.keys(m).map(function (k) { return m[k]; }).sort(function (a, b) { return a.name.localeCompare(b.name); });
+  }
+  function byOrder(a, b) { return (a.date || "") < (b.date || "") ? -1 : (a.date || "") > (b.date || "") ? 1 : (a.createdAt || 0) - (b.createdAt || 0); }
+  function recent() { return rows.slice().sort(function (a, b) { return (b.createdAt || 0) - (a.createdAt || 0); }); }
+  function distinct(field) {
+    var seen = {}, out = [];
+    recent().forEach(function (r) { var v = r[field]; if (v && !seen[v]) { seen[v] = 1; out.push(v); } });
+    return out;
+  }
+  function lastPrice(type, doctor) {
+    var ty = String(type).toLowerCase(), d = (doctor || "").toLowerCase(), rs = recent();
+    var hit = rs.filter(function (r) { return String(r.type).toLowerCase() === ty && r.doctor.toLowerCase() === d; })[0] ||
+      rs.filter(function (r) { return String(r.type).toLowerCase() === ty; })[0];
+    return hit ? hit.price : null;
+  }
+
+  /* ---------- render ---------- */
+  function renderChrome() {
+    document.documentElement.lang = lang;
+    $("#title").textContent = t("title");
+    $("#mlabel").textContent = monthLabel(ui.month);
+    $("#langseg").innerHTML = ["uz", "ru"].map(function (L) { return '<button data-lang="' + L + '" aria-pressed="' + (lang === L) + '">' + L.toUpperCase() + '</button>'; }).join("");
+    $("#nav").innerHTML = ["add", "report", "settings"].map(function (k) {
+      return '<button data-tab="' + k + '"' + (ui.tab === k ? ' aria-current="page"' : '') + '>' + ICONS[k] + '<span>' + esc(t("tab_" + k)) + '</span></button>';
+    }).join("");
+  }
+  function render() {
+    renderChrome();
+    var main = $("#main");
+    if (!ready || !setReady) { main.innerHTML = '<p class="note">…</p>'; return; }
+    var d = ui.draft;
+    if (!d.date) d.date = defaultDate();
+    var h = '<div style="display:flex;flex-direction:column;gap:16px">';
+    h += ui.tab === "add" ? addView() : ui.tab === "report" ? reportView() : settingsView();
+    h += '</div>';
+    main.innerHTML = h;
+    updateSum();
+  }
+
+  function addView() {
+    var h = "";
+    if (needSettings()) h += '<div class="banner"><span>' + esc(t("banner")) + '</span><button class="btn" data-tab="settings">' + esc(t("fill")) + '</button></div>';
+    h += formHtml();
+    var rc = recent().slice(0, 5);
+    if (rc.length) {
+      h += '<div class="sec-head"><h2 style="font-size:17px">' + esc(t("recent")) + '</h2><p class="note">' + esc(t("recent_hint")) + '</p></div><div class="recent">' + rc.map(function (r) {
+        var meta = [typeLabel(lang, r.type), formulaText(lang, r)].filter(Boolean).join(" · ");
+        return '<button class="rc" data-edit="' + r.id + '"><b>' + esc(r.patient) + '</b><span>' + esc(r.doctor + " · " + meta) + '</span><div class="amt">' + esc(money(sum(r))) + '</div></button>';
+      }).join("") + '</div>';
+    }
+    return h;
+  }
+
+  function reportView() {
+    var list = inMonth(), docs = doctorsOf(list);
+    if (!docs.some(function (x) { return x.name === ui.doctor; })) ui.doctor = docs.length ? docs[0].name : "";
+    var mine = list.filter(function (r) { return r.doctor === ui.doctor; }).sort(byOrder);
+    if (!list.length) {
+      return '<div class="empty"><b>' + esc(t("empty_t", { month: monthLabel(ui.month) })) + '</b><span>' + esc(t("empty_p")) + '</span><button class="btn primary" data-tab="add">' + esc(t("add_first")) + '</button></div>';
+    }
+    var monthTotal = docs.reduce(function (a, x) { return a + x.total; }, 0);
+    var h = '<div class="monthsum"><span class="note">' + esc(t("month_total")) + '</span><span class="big">' + esc(money(monthTotal)) + '</span></div>';
+    h += '<div class="docs">' + docs.map(function (x) {
+      return '<button class="doc" data-doc="' + esc(x.name) + '" aria-pressed="' + (x.name === ui.doctor) + '"><span>' + esc(x.name) + '</span><small>' + esc(t("works_money", { n: x.n, sum: money(x.total) })) + '</small></button>';
+    }).join("") + '</div>';
+    h += '<div class="sec-head"><h2>' + esc(ui.doctor) + '</h2><p class="note">' + esc(t("rows_note", { n: mine.length })) + '</p></div>';
+    h += '<div class="tablewrap"><table><thead><tr><th>' + t("th_date") + '</th><th>' + t("th_patient") + '</th><th>' + t("th_formula") + '</th><th>' + t("th_type") + '</th><th class="r">' + t("th_qty") + '</th><th class="r">' + t("th_price") + '</th><th class="r">' + t("th_sum") + '</th></tr></thead><tbody>' +
+      mine.map(function (r) {
+        return '<tr data-edit="' + r.id + '"><td class="mono">' + dm(r.date) + '</td><td>' + esc(r.patient) + '</td><td class="mono">' + esc(formulaText(lang, r)) + '</td><td>' + esc(typeLabel(lang, r.type)) + '</td><td class="r">' + fmt(r.qty) + '</td><td class="r">' + fmt(r.price) + '</td><td class="r"><b>' + fmt(sum(r)) + '</b></td></tr>';
+      }).join("") + '</tbody></table></div>';
+    var tot = mine.reduce(function (a, r) { return a + sum(r); }, 0), q = mine.reduce(function (a, r) { return a + (Number(r.qty) || 0); }, 0);
+    var pl = ui.pdfLang || lang;
+    h += '<div class="totalbar"><div><div class="cap">' + esc(t("total_cap", { doc: ui.doctor, month: monthLabel(ui.month), q: fmt(q) })) + '</div><div class="big">' + esc(money(tot)) + '</div></div>' +
+      (downloads ? '<div class="pdfbox"><div class="pl"><span>' + esc(t("pdf_lang")) + '</span><span class="seg small"><button data-pdflang="uz" aria-pressed="' + (pl === "uz") + '">UZ</button><button data-pdflang="ru" aria-pressed="' + (pl === "ru") + '">RU</button></span></div>' +
+        '<button class="btn primary" data-act="pdf"' + (ui.busy ? " disabled" : "") + '>' + esc(ui.busy ? t("pdf_busy") : t("pdf_btn")) + '</button></div>' : '<p class="note" style="max-width:260px">' + esc(t("pdf_na")) + '</p>') + '</div>';
+    if (ui.lastUrl && !inClaude) h += '<p class="note">' + esc(t("pdf_open")) + ' <a href="' + ui.lastUrl + '" target="_blank" rel="noopener" style="color:var(--accent)">' + esc(t("pdf_open_a")) + '</a></p>';
+    return h;
+  }
+
+  function settingsView() {
+    return '<div class="card"><h2>' + esc(t("settings")) + '</h2>' +
+      '<div class="row2"><label class="fld">' + esc(t("lab_name")) + '<input id="s-name" autocomplete="off" value="' + esc(settings.labName) + '"></label>' +
+      '<label class="fld">' + esc(t("phone")) + '<input id="s-phone" inputmode="tel" autocomplete="off" placeholder="+998 90 000 00 00" value="' + esc(settings.phone) + '"></label></div>' +
+      '<label class="fld">' + esc(t("address")) + '<input id="s-addr" autocomplete="off" value="' + esc(settings.address) + '"></label>' +
+      '<div><div class="lbl">' + esc(t("cur_label")) + '</div><div class="cur" role="group"><button data-cur="so\'m" aria-pressed="' + (settings.cur !== "$") + '">' + esc(t("cur_sum")) + '</button><button data-cur="$" aria-pressed="' + (settings.cur === "$") + '">$</button></div></div>' +
+      '<div class="acts"><button class="btn primary" data-act="save-settings">' + esc(t("save")) + '</button></div></div>' +
+      (db || inClaude ? '' : '<div class="card"><h2>' + esc(t("backup")) + '</h2><div class="acts" style="justify-content:flex-start"><button type="button" class="btn" data-act="backup">' + esc(t("backup_dl")) + '</button><label class="btn" style="cursor:pointer">' + esc(t("backup_restore")) + '<input id="restore" type="file" accept="application/json,.json" hidden></label></div><p class="note">' + esc(t("backup_note")) + '</p></div>');
+  }
+
+  function formHtml() {
+    var d = ui.draft, editing = !!d.id;
+    var extra = distinct("type").filter(function (x) { return TYPE_KEYS.indexOf(x) < 0; }).slice(0, 4);
+    var chips = TYPE_KEYS.concat(extra).map(function (k) {
+      return '<button type="button" class="ty" data-type="' + esc(k) + '" aria-pressed="' + (!d.custom && d.type === k) + '">' + esc(typeLabel(lang, k)) + '</button>';
+    }).join("") + '<button type="button" class="ty other" data-type-other="1" aria-pressed="' + !!d.custom + '">' + esc(t("other")) + '</button>';
+    var jaws = ["up", "low", "both"].map(function (j) {
+      return '<button type="button" class="ty" data-jaw="' + j + '" aria-pressed="' + (d.jaw === j) + '">' + esc(t("jaw_" + j)) + '</button>';
+    }).join("");
+    var teethBlock = d.teethOpen ? '<div class="teeth">' + QUADS.map(function (q) {
+      return '<div class="quad"><small>' + esc(t(q[0])) + '</small><div class="qrow">' + q[1].map(function (n) {
+        return '<button type="button" class="t" data-tooth="' + n + '" aria-pressed="' + (d.teeth.indexOf(n) >= 0) + '" aria-label="' + n + '">' + n + '</button>';
+      }).join("") + '</div></div>';
+    }).join("") + '</div>' : '';
+    var docs = distinct("doctor"), quick = docs.slice(0, 6).map(function (x) {
+      return '<button type="button" class="ty sm" data-pickdoc="' + esc(x) + '" aria-pressed="' + (d.doctor === x) + '">' + esc(x) + '</button>';
+    }).join("");
+    return '<form class="card" id="f" autocomplete="off"><h2>' + esc(editing ? t("edit_work") : t("new_work")) + '</h2>' +
+      '<div class="step"><div class="sh"><i>1</i>' + esc(t("step1")) + '</div>' +
+      '<div class="row2"><label class="fld">' + esc(t("doctor")) + '<input id="f-doctor" list="dl-doc" required value="' + esc(d.doctor) + '"></label>' +
+      '<label class="fld">' + esc(t("patient")) + '<input id="f-patient" required value="' + esc(d.patient) + '"></label></div>' +
+      (quick ? '<div class="types">' + quick + '</div>' : '') + '</div>' +
+      '<div class="step"><div class="sh"><i>2</i>' + esc(t("step2")) + '</div>' +
+      '<div><div class="lbl">' + esc(t("type")) + '</div><div class="types">' + chips + '</div>' +
+      (d.custom ? '<input id="f-type" style="margin-top:8px" placeholder="' + esc(t("type_ph")) + '" value="' + esc(d.type) + '">' : '') + '</div>' +
+      '<div><div class="lbl">' + esc(t("jaw")) + '</div><div class="jaws">' + jaws + '</div></div>' +
+      '<div><div class="lbl"><button type="button" class="btn link" data-act="toggle-teeth" style="padding-left:0">' + esc(d.teethOpen ? t("teeth_hide") : t("teeth_toggle")) + '</button>' +
+      (d.teeth.length ? '<span><b>' + esc(teethStr(d.teeth)) + '</b> <button type="button" class="btn link" data-act="clear-teeth">' + esc(t("clear")) + '</button></span>' : '') + '</div>' + teethBlock + '</div></div>' +
+      '<div class="step"><div class="sh"><i>3</i>' + esc(t("step3")) + '</div>' +
+      '<div class="row3"><label class="fld">' + esc(t("date")) + '<input id="f-date" type="date" required value="' + esc(d.date) + '"></label>' +
+      '<div class="fld">' + esc(t("qty")) + '<div class="stepper"><button type="button" data-qty="-1" aria-label="−">−</button><input id="f-qty" type="number" min="1" step="1" inputmode="numeric" required value="' + esc(d.qty) + '"><button type="button" data-qty="1" aria-label="+">+</button></div></div>' +
+      '<label class="fld">' + esc(t("price", { cur: settings.cur === "$" ? "$" : t("cur_sum") })) + '<input id="f-price" type="number" min="0" step="any" inputmode="decimal" required value="' + esc(d.price) + '"></label></div>' +
+      '<div class="acts"><span class="sum" id="f-sum"></span>' +
+      (editing ? '<button type="button" class="btn danger" data-act="del">' + esc(ui.pendingDel ? t("del_sure") : t("del")) + '</button><button type="button" class="btn" data-act="cancel">' + esc(t("cancel")) + '</button>' : '') +
+      '<button type="submit" class="btn primary">' + esc(editing ? t("save") : t("add")) + '</button></div></div>' +
+      '<datalist id="dl-doc">' + docs.map(function (x) { return '<option value="' + esc(x) + '">'; }).join("") + '</datalist></form>';
+  }
+  function updateSum() {
+    var el = $("#f-sum"); if (!el) return;
+    var d = ui.draft;
+    el.textContent = t("sum") + ": " + money((Number(d.qty) || 0) * (Number(d.price) || 0));
+  }
+
+  /* ---------- PDF: drawn on a canvas (so Uzbek and Russian letters always display), then written as A4 pages ---------- */
+  var FONT = '"IBM Plex Sans", "Segoe UI", system-ui, sans-serif';
+  var DISPLAY = '"Familjen Grotesk", "IBM Plex Sans", "Segoe UI", system-ui, sans-serif';
+  function wrap(ctx, text, maxW) {
+    var words = String(text || "").split(/\s+/).filter(Boolean), lines = [], cur = "";
+    if (!words.length) return [""];
+    words.forEach(function (w) {
+      while (ctx.measureText(w).width > maxW) {
+        var i = w.length; while (i > 1 && ctx.measureText(w.slice(0, i)).width > maxW) i--;
+        if (cur) { lines.push(cur); cur = ""; }
+        lines.push(w.slice(0, i)); w = w.slice(i);
+      }
+      var s = cur ? cur + " " + w : w;
+      if (ctx.measureText(s).width > maxW && cur) { lines.push(cur); cur = w; } else cur = s;
+    });
+    if (cur) lines.push(cur);
+    return lines;
+  }
+  function buildPages(L, doctor, list) {
+    var W = 794, H = 1123, S = 2, M = 46, pages = [], ctx, y;
+    var cols = [["№", 28, "l"], ["th_patient", 112, "l"], ["th_formula", 124, "l"], ["th_type", 152, "l"], ["th_qty", 68, "r"], ["th_price", 100, "r"], ["th_sum", 106, "r"]];
+    var xs = [], x = M; cols.forEach(function (c) { xs.push(x); x += c[1]; });
+    var INK = "#111", MUT = "#555", LINE = "#bbb";
+    function newPage() {
+      var c = document.createElement("canvas"); c.width = W * S; c.height = H * S;
+      ctx = c.getContext("2d"); ctx.scale(S, S); ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, W, H); ctx.textBaseline = "alphabetic";
+      pages.push(c); y = M;
+    }
+    function cell(text, i, yy) {
+      var c = cols[i], p = 6, w = c[1] - p * 2;
+      ctx.textAlign = c[2] === "r" ? "right" : "left";
+      var tx = c[2] === "r" ? xs[i] + c[1] - p : xs[i] + p;
+      var ls = wrap(ctx, text, w);
+      ls.forEach(function (l, k) { ctx.fillText(l, tx, yy + k * 17); });
+      return ls.length;
+    }
+    function tableHead() {
+      ctx.font = "600 11px " + FONT; ctx.fillStyle = MUT;
+      cols.forEach(function (c, i) { cell((c[0].indexOf("th_") === 0 ? tr(L, c[0]) : c[0]).toUpperCase(), i, y + 12); });
+      y += 20; ctx.strokeStyle = INK; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(M, y); ctx.lineTo(W - M, y); ctx.stroke(); y += 6;
+    }
+    newPage();
+    var name = settings.labName || tr(L, "p_doc_title");
+    ctx.textAlign = "left"; ctx.fillStyle = INK; ctx.font = "700 28px " + DISPLAY; ctx.fillText(name, M, y + 24);
+    if (settings.labName) { ctx.font = "500 12px " + FONT; ctx.fillStyle = MUT; ctx.fillText("DENTAL LABORATORY", M, y + 42); }
+    var lines = []; if (settings.address) lines.push(settings.address); if (settings.phone) lines.push(tr(L, "p_phone") + ": " + settings.phone);
+    ctx.textAlign = "right"; ctx.font = "400 12px " + FONT; ctx.fillStyle = MUT;
+    lines.forEach(function (l, i) { ctx.fillText(l, W - M, y + 16 + i * 17); });
+    y += 62; ctx.strokeStyle = LINE; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(M, y); ctx.lineTo(W - M, y); ctx.stroke(); y += 34;
+    ctx.textAlign = "left"; ctx.fillStyle = INK; ctx.font = "700 22px " + DISPLAY; ctx.fillText(tr(L, "p_doc_title"), M, y); y += 28;
+    var dt = new Date(), ds = pad(dt.getDate()) + "." + pad(dt.getMonth() + 1) + "." + dt.getFullYear();
+    [[tr(L, "p_doctor"), doctor], [tr(L, "p_period"), monthLabelL(L, ui.month)], [tr(L, "p_date"), ds]].forEach(function (p) {
+      ctx.font = "400 14px " + FONT; ctx.fillStyle = MUT; ctx.textAlign = "left"; ctx.fillText(p[0] + ":", M, y);
+      ctx.fillStyle = INK; ctx.font = "600 14px " + FONT; ctx.fillText(p[1], M + 130, y); y += 22;
+    });
+    y += 12; tableHead();
+    var total = 0, qtySum = 0;
+    list.forEach(function (r, idx) {
+      ctx.font = "400 13px " + FONT;
+      var f = formulaText(L, r), ty = typeLabel(L, r.type);
+      var n = Math.max(wrap(ctx, r.patient, cols[1][1] - 12).length, wrap(ctx, f, cols[2][1] - 12).length, wrap(ctx, ty, cols[3][1] - 12).length);
+      var rh = n * 17 + 10;
+      if (y + rh > H - M - 40) { newPage(); tableHead(); }
+      ctx.font = "400 13px " + FONT;
+      var by = y + 15;
+      ctx.fillStyle = MUT; cell(String(idx + 1), 0, by);
+      ctx.fillStyle = INK; cell(r.patient, 1, by); cell(f, 2, by); cell(ty, 3, by);
+      cell(fmt(r.qty), 4, by); cell(fmt(r.price), 5, by); ctx.font = "600 13px " + FONT; cell(fmt(sum(r)), 6, by);
+      y += rh; ctx.strokeStyle = "#ddd"; ctx.lineWidth = 0.7; ctx.beginPath(); ctx.moveTo(M, y); ctx.lineTo(W - M, y); ctx.stroke();
+      total += sum(r); qtySum += Number(r.qty) || 0;
+    });
+    if (y + 80 > H - M) newPage();
+    y += 22; ctx.strokeStyle = INK; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(M, y - 12); ctx.lineTo(W - M, y - 12); ctx.stroke();
+    ctx.textAlign = "left"; ctx.fillStyle = MUT; ctx.font = "400 13px " + FONT; ctx.fillText(tr(L, "p_qty_total", { n: fmt(qtySum) }), M, y + 6);
+    ctx.textAlign = "right"; ctx.fillStyle = INK; ctx.font = "500 14px " + FONT; ctx.fillText(tr(L, "p_total"), W - M, y + 6);
+    ctx.font = "700 26px " + DISPLAY; ctx.fillText(moneyL(L, total), W - M, y + 36);
+    pages.forEach(function (c, i) {
+      var g = c.getContext("2d"); g.setTransform(S, 0, 0, S, 0, 0); g.textAlign = "center"; g.fillStyle = "#777"; g.font = "400 11px " + FONT;
+      g.fillText((settings.labName ? settings.labName + " · " : "") + (i + 1) + " / " + pages.length, W / 2, H - 22);
+    });
+    return pages;
+  }
+  /* Minimal PDF writer: one JPEG image per A4 page. No external library. */
+  function pdfFromCanvases(pages) {
+    var enc = new TextEncoder(), chunks = [], offs = [], pos = 0, N = pages.length;
+    function push(x) { if (typeof x === "string") x = enc.encode(x); chunks.push(x); pos += x.length; }
+    function obj(n, parts) { offs[n] = pos; push(n + " 0 obj\n"); parts.forEach(push); push("\nendobj\n"); }
+    function bytes(c) { var b = atob(c.toDataURL("image/jpeg", 0.92).split(",")[1]), u = new Uint8Array(b.length); for (var i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; }
+    push("%PDF-1.4\n");
+    var kids = []; for (var i = 0; i < N; i++) kids.push((3 + 3 * i) + " 0 R");
+    obj(1, ["<< /Type /Catalog /Pages 2 0 R >>"]);
+    obj(2, ["<< /Type /Pages /Count " + N + " /Kids [" + kids.join(" ") + "] >>"]);
+    pages.forEach(function (c, i) {
+      var pg = 3 + 3 * i, ct = pg + 1, im = pg + 2, jpg = bytes(c), s = "q 595.28 0 0 841.89 0 0 cm /Im0 Do Q";
+      obj(pg, ["<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /XObject << /Im0 " + im + " 0 R >> >> /Contents " + ct + " 0 R >>"]);
+      obj(ct, ["<< /Length " + s.length + " >>\nstream\n", s, "\nendstream"]);
+      obj(im, ["<< /Type /XObject /Subtype /Image /Width " + c.width + " /Height " + c.height + " /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length " + jpg.length + " >>\nstream\n", jpg, "\nendstream"]);
+    });
+    var total = 2 + 3 * N, xr = pos;
+    push("xref\n0 " + (total + 1) + "\n0000000000 65535 f \n");
+    for (var n = 1; n <= total; n++) push(String(offs[n]).padStart(10, "0") + " 00000 n \n");
+    push("trailer\n<< /Size " + (total + 1) + " /Root 1 0 R >>\nstartxref\n" + xr + "\n%%EOF");
+    return new Blob(chunks, { type: "application/pdf" });
+  }
+  function loadFonts() {
+    if (!(document.fonts && document.fonts.load)) return Promise.resolve();
+    var sample = "АбвГдЖзИйКлМн Hisob o'g'";
+    return Promise.all([
+      document.fonts.load('400 13px "IBM Plex Sans"', sample), document.fonts.load('500 14px "IBM Plex Sans"', sample),
+      document.fonts.load('600 13px "IBM Plex Sans"', sample), document.fonts.load('700 28px "Familjen Grotesk"', sample)
+    ]).catch(function () {}).then(function () { return document.fonts.ready; });
+  }
+  function makePdf() {
+    if (ui.busy || !downloads) return;
+    if (needSettings()) { ui.tab = "settings"; render(); toast(t("t_need_set")); return; }
+    var list = inMonth().filter(function (r) { return r.doctor === ui.doctor; }).sort(byOrder);
+    if (!list.length) return;
+    ui.busy = true; render();
+    var doctor = ui.doctor, L = ui.pdfLang || lang;
+    loadFonts().then(function () {
+      var blob = pdfFromCanvases(buildPages(L, doctor, list));
+      var safe = doctor.replace(/[^A-Za-z0-9]+/g, "_").replace(/^_|_$/g, "") || tr(L, "p_who");
+      if (ui.lastUrl) URL.revokeObjectURL(ui.lastUrl);
+      ui.lastUrl = URL.createObjectURL(blob);
+      return downloads.save({ filename: tr(L, "p_file") + "_" + safe + "_" + ui.month + ".pdf", data: blob });
+    }).then(function () { toast(t("t_pdf_ok")); },
+      function (e) { if (!e || e.code !== "declined") toast(t("t_pdf_fail") + " (" + ((e && e.code) || (e && e.message) || "!") + ")"); })
+      .then(function () { ui.busy = false; render(); });
+  }
+
+  /* ---------- events ---------- */
+  function go(tab) { ui.tab = tab; render(); window.scrollTo(0, 0); }
+  function shiftMonth(n) {
+    var p = ui.month.split("-").map(Number), dt = new Date(p[0], p[1] - 1 + n, 1);
+    ui.month = dt.getFullYear() + "-" + pad(dt.getMonth() + 1); ui.editId = ""; ui.pendingDel = false;
+    ui.draft = newDraft(ui.draft.doctor, null); render();
+  }
+  $("#prev").addEventListener("click", function () { shiftMonth(-1); });
+  $("#next").addEventListener("click", function () { shiftMonth(1); });
+  function applyAutoPrice() {
+    var d = ui.draft;
+    if (d.type && d.price === "") { var p = lastPrice(d.type, d.doctor); if (p != null) d.price = p; }
+  }
+  function download(name, blob) {
+    var url = URL.createObjectURL(blob), a = document.createElement("a");
+    a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 15000);
+  }
+  function endEdit() { ui.editId = ""; ui.pendingDel = false; ui.draft = newDraft(ui.doctor, null); var back = ui.returnTab || "add"; ui.returnTab = "add"; go(back); }
+  document.addEventListener("click", function (e) {
+    var tg = e.target, el;
+    if ((el = tg.closest("[data-lang]"))) {
+      lang = el.dataset.lang; try { localStorage.setItem(LS_LANG, lang); } catch (x) {} ui.pdfLang = null; return render();
+    }
+    if ((el = tg.closest("[data-tab]"))) { if (ui.editId && el.dataset.tab !== "add") { ui.editId = ""; ui.pendingDel = false; ui.draft = newDraft(ui.doctor, null); ui.returnTab = "add"; } return go(el.dataset.tab); }
+    if ((el = tg.closest("[data-pdflang]"))) { ui.pdfLang = el.dataset.pdflang; return render(); }
+    if ((el = tg.closest("[data-doc]"))) { ui.doctor = el.dataset.doc; return render(); }
+    if ((el = tg.closest("[data-pickdoc]"))) { ui.draft.doctor = el.dataset.pickdoc; applyAutoPrice(); return render(); }
+    if ((el = tg.closest("[data-qty]"))) {
+      var dq = ui.draft; dq.qty = Math.max(1, (Number(dq.qty) || 1) + Number(el.dataset.qty)); dq.qtyTouched = true; return render();
+    }
+    if ((el = tg.closest("[data-jaw]"))) {
+      var dj = ui.draft, j = el.dataset.jaw; dj.jaw = dj.jaw === j ? "" : j;
+      if (!dj.qtyTouched) dj.qty = dj.jaw === "both" ? 2 : 1;
+      return render();
+    }
+    if ((el = tg.closest("[data-tooth]"))) {
+      var n = Number(el.dataset.tooth), d = ui.draft, i = d.teeth.indexOf(n);
+      if (i >= 0) d.teeth.splice(i, 1); else d.teeth.push(n);
+      return render();
+    }
+    if ((el = tg.closest("[data-type]"))) { ui.draft.type = el.dataset.type; ui.draft.custom = false; applyAutoPrice(); return render(); }
+    if (tg.closest("[data-type-other]")) {
+      var dd = ui.draft; dd.custom = true; if (TYPE_KEYS.indexOf(dd.type) >= 0) dd.type = "";
+      render(); var ti = $("#f-type"); if (ti) ti.focus(); return;
+    }
+    if ((el = tg.closest("[data-cur]"))) {
+      if ($("#s-name")) { settings.labName = $("#s-name").value.trim(); settings.phone = $("#s-phone").value.trim(); settings.address = $("#s-addr").value.trim(); }
+      settings.cur = el.dataset.cur; return render();
+    }
+    if ((el = tg.closest("[data-edit]"))) {
+      var r = rows.filter(function (x) { return x.id === el.dataset.edit; })[0]; if (!r) return;
+      ui.returnTab = ui.tab === "report" ? "report" : "add";
+      ui.editId = r.id; ui.pendingDel = false;
+      var known = TYPE_KEYS.indexOf(r.type) >= 0 || distinct("type").indexOf(r.type) >= 0;
+      ui.draft = { id: r.id, doctor: r.doctor, patient: r.patient, jaw: r.jaw || "", teeth: (r.teeth || []).slice(), teethOpen: (r.teeth || []).length > 0, type: r.type, custom: !known && !!r.type, qty: r.qty, qtyTouched: true, price: r.price, date: r.date, createdAt: r.createdAt };
+      return go("add");
+    }
+    var a = tg.closest("[data-act]"); if (!a) return;
+    var act = a.dataset.act;
+    if (act === "pdf") return makePdf();
+    if (act === "toggle-teeth") { ui.draft.teethOpen = !ui.draft.teethOpen; return render(); }
+    if (act === "clear-teeth") { ui.draft.teeth = []; return render(); }
+    if (act === "cancel") return endEdit();
+    if (act === "del") {
+      if (!ui.pendingDel) { ui.pendingDel = true; return render(); }
+      var id = ui.editId;
+      return removeRow(id).then(function () { toast(t("t_deleted")); endEdit(); });
+    }
+    if (act === "backup") { return download("hisob-zaxira-" + today() + ".json", new Blob([JSON.stringify({ v: 1, rows: rows, settings: settings }, null, 1)], { type: "application/json" })); }
+    if (act === "save-settings") {
+      var s = { labName: $("#s-name").value.trim(), phone: $("#s-phone").value.trim(), address: $("#s-addr").value.trim(), cur: settings.cur };
+      return saveSettings(s).then(function () { toast(t("t_set_saved")); render(); });
+    }
+  });
+  document.addEventListener("input", function (e) {
+    var id = e.target.id, d = ui.draft;
+    if (id === "f-doctor") d.doctor = e.target.value;
+    else if (id === "f-patient") d.patient = e.target.value;
+    else if (id === "f-type") d.type = e.target.value;
+    else if (id === "f-date") d.date = e.target.value;
+    else if (id === "f-qty") { d.qty = e.target.value; d.qtyTouched = true; }
+    else if (id === "f-price") d.price = e.target.value;
+    else return;
+    updateSum();
+  });
+  document.addEventListener("change", function (e) {
+    if (e.target.id === "restore" && e.target.files && e.target.files[0]) {
+      var rd = new FileReader();
+      rd.onload = function () {
+        try {
+          var j = JSON.parse(rd.result), n = 0;
+          (j.rows || []).forEach(function (r) {
+            if (!r || !r.id) return;
+            norm(r);
+            var i = rows.findIndex(function (x) { return x.id === r.id; });
+            if (i >= 0) rows[i] = r; else rows.push(r); n++;
+          });
+          if (j.settings) settings = Object.assign(settings, j.settings);
+          lsSave(); render(); toast(t("t_restored", { n: n }));
+        } catch (err) { toast(t("t_bad_file")); }
+      };
+      rd.readAsText(e.target.files[0]); return;
+    }
+    if (e.target.id === "f-type" || e.target.id === "f-doctor") {
+      var d = ui.draft;
+      if (d.price === "" && d.type) { var p = lastPrice(d.type, d.doctor); if (p != null) { d.price = p; var pi = $("#f-price"); if (pi) pi.value = p; updateSum(); } }
+    }
+  });
+  document.addEventListener("submit", function (e) {
+    if (e.target.id !== "f") return; e.preventDefault();
+    var d = ui.draft;
+    var doctor = (d.doctor || "").trim(), patient = (d.patient || "").trim(), type = (d.type || "").trim();
+    if (!doctor || !patient) return;
+    if (!type) { toast(t("t_type")); return; }
+    var r = {
+      id: d.id || uid(), doctor: doctor, patient: patient, jaw: d.jaw, teeth: d.teeth.slice(), type: type,
+      qty: Math.max(1, Number(d.qty) || 1), price: Number(d.price) || 0, date: d.date || today(), createdAt: d.createdAt || Date.now()
+    };
+    var wasEdit = !!d.id, back = wasEdit ? (ui.returnTab || "add") : "add";
+    ui.editId = ""; ui.pendingDel = false; ui.returnTab = "add";
+    ui.month = r.date.slice(0, 7); ui.doctor = r.doctor;
+    ui.draft = newDraft(r.doctor, r.date);
+    ui.tab = back;
+    saveRow(r).then(function () {
+      toast(wasEdit ? t("t_saved") : t("t_added")); render();
+      if (wasEdit) window.scrollTo(0, 0);
+      var p = $("#f-patient"); if (p && !wasEdit) p.focus();
+    });
+  });
+
+  /* ---------- start ---------- */
+  function localDownloads() {
+    return {
+      save: function (o) {
+        var file = null;
+        try { file = new File([o.data], o.filename, { type: o.data.type || "application/pdf" }); } catch (e) {}
+        if (file && /\.pdf$/i.test(o.filename) && navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+          return navigator.share({ files: [file], title: o.filename }).then(function () { return { status: "saved" }; }, function (e) {
+            if (e && e.name === "AbortError") { var x = new Error("declined"); x.code = "declined"; throw x; }
+            download(o.filename, o.data); return { status: "saved" };
+          });
+        }
+        download(o.filename, o.data); return Promise.resolve({ status: "saved" });
+      }
+    };
+  }
+  function startLocal() { lsLoad(); ready = true; setReady = true; render(); }
+  function startDb(d) {
+    db = d;
+    db.collection(COL).onSnapshot(function (snap) {
+      rows = snap.docs.map(function (x) { return norm(Object.assign({}, x.data(), { id: x.id })); });
+      ready = true; render();
+    }, function () { ready = true; render(); });
+    db.doc("settings/main").onSnapshot(function (snap) {
+      if (snap.exists) settings = Object.assign({ labName: "", phone: "", address: "", cur: "so'm" }, snap.data());
+      setReady = true; render();
+    }, function () { setReady = true; render(); });
+  }
+  render();
+  if (inClaude) {
+    C.use("downloads").then(function (x) { downloads = x || null; render(); }, function () {});
+    C.use("db").then(function (x) { if (x) startDb(x); else startLocal(); }, startLocal);
+  } else {
+    downloads = localDownloads();
+    try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist(); } catch (e) {}
+    if ("serviceWorker" in navigator && /^https?:$/.test(location.protocol)) { navigator.serviceWorker.register("sw.js").catch(function () {}); }
+    startLocal();
+  }
+})();
+</script>
+
+</body>
+</html>
