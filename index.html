@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-/* Layout: header (title, language, month), three bottom tabs. Add = one numbered entry card + recent entries. Report = month total, doctor tabs, table, total bar with PDF. Settings = lab details, currency, backup. Background: faint outlined teeth. */
+/* Layout: header (title, language, month), three bottom tabs. Add = three-step entry card + recent entries. Report = month total, doctor tabs, work cards, total bar with PDF. Settings = lab details, backup. Clean theme, blue accent, light/dark/auto switch in Settings. */
 :root {
   --bg: #eef1f6;
   --surface: #ffffff;
@@ -29,7 +29,7 @@
   --bad: #b0322a;
   --warn-bg: #fbecd0;
   --warn-ink: #7a4800;
-  --pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='170' height='170' viewBox='0 0 170 170'%3E%3Cg fill='none' stroke='%231f4e8c' stroke-opacity='.1' stroke-width='1.5' stroke-linejoin='round' stroke-linecap='round'%3E%3Cpath transform='translate(18 12) scale(.36)' d='M30 22C30 14 40 12 50 17C60 12 70 14 70 22C70 34 66 40 65 52C64 66 62 84 56 84C51 84 52 66 50 62C48 66 49 84 44 84C38 84 36 66 35 52C34 40 30 34 30 22Z'/%3E%3Cpath transform='translate(128 66) rotate(24) scale(.3)' d='M30 22C30 14 40 12 50 17C60 12 70 14 70 22C70 34 66 40 65 52C64 66 62 84 56 84C51 84 52 66 50 62C48 66 49 84 44 84C38 84 36 66 35 52C34 40 30 34 30 22Z'/%3E%3Cpath transform='translate(54 128) rotate(-18) scale(.28)' d='M30 22C30 14 40 12 50 17C60 12 70 14 70 22C70 34 66 40 65 52C64 66 62 84 56 84C51 84 52 66 50 62C48 66 49 84 44 84C38 84 36 66 35 52C34 40 30 34 30 22Z'/%3E%3Cpath d='M92 30v10M87 35h10M30 100v8M26 104h8M146 132v8M142 136h8'/%3E%3Ccircle cx='100' cy='96' r='2'/%3E%3Ccircle cx='20' cy='150' r='1.6'/%3E%3Ccircle cx='150' cy='20' r='1.6'/%3E%3C/g%3E%3C/svg%3E");
+  --pattern: none;
   --font-display: "Familjen Grotesk", "Segoe UI", system-ui, sans-serif;
   --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
@@ -39,16 +39,19 @@
     --bg: #0e141f; --surface: #161e2d; --surface-2: #1b2536; --ink: #e6ecf6; --muted: #94a3b8;
     --line: #28344a; --accent: #7fb0f0; --accent-ink: #08172e; --soft: #1d2f4b; --bad: #f08a80;
     --warn-bg: #36290f; --warn-ink: #e6b04f; color-scheme: dark;
-    --pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='170' height='170' viewBox='0 0 170 170'%3E%3Cg fill='none' stroke='%237fb0f0' stroke-opacity='.09' stroke-width='1.5' stroke-linejoin='round' stroke-linecap='round'%3E%3Cpath transform='translate(18 12) scale(.36)' d='M30 22C30 14 40 12 50 17C60 12 70 14 70 22C70 34 66 40 65 52C64 66 62 84 56 84C51 84 52 66 50 62C48 66 49 84 44 84C38 84 36 66 35 52C34 40 30 34 30 22Z'/%3E%3Cpath transform='translate(128 66) rotate(24) scale(.3)' d='M30 22C30 14 40 12 50 17C60 12 70 14 70 22C70 34 66 40 65 52C64 66 62 84 56 84C51 84 52 66 50 62C48 66 49 84 44 84C38 84 36 66 35 52C34 40 30 34 30 22Z'/%3E%3Cpath transform='translate(54 128) rotate(-18) scale(.28)' d='M30 22C30 14 40 12 50 17C60 12 70 14 70 22C70 34 66 40 65 52C64 66 62 84 56 84C51 84 52 66 50 62C48 66 49 84 44 84C38 84 36 66 35 52C34 40 30 34 30 22Z'/%3E%3Cpath d='M92 30v10M87 35h10M30 100v8M26 104h8M146 132v8M142 136h8'/%3E%3Ccircle cx='100' cy='96' r='2'/%3E%3Ccircle cx='20' cy='150' r='1.6'/%3E%3Ccircle cx='150' cy='20' r='1.6'/%3E%3C/g%3E%3C/svg%3E");
+    --pattern: none;
   }
 }
 :root[data-theme="dark"] {
   --bg: #0e141f; --surface: #161e2d; --surface-2: #1b2536; --ink: #e6ecf6; --muted: #94a3b8;
   --line: #28344a; --accent: #7fb0f0; --accent-ink: #08172e; --soft: #1d2f4b; --bad: #f08a80;
   --warn-bg: #36290f; --warn-ink: #e6b04f; color-scheme: dark;
-  --pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='170' height='170' viewBox='0 0 170 170'%3E%3Cg fill='none' stroke='%237fb0f0' stroke-opacity='.09' stroke-width='1.5' stroke-linejoin='round' stroke-linecap='round'%3E%3Cpath transform='translate(18 12) scale(.36)' d='M30 22C30 14 40 12 50 17C60 12 70 14 70 22C70 34 66 40 65 52C64 66 62 84 56 84C51 84 52 66 50 62C48 66 49 84 44 84C38 84 36 66 35 52C34 40 30 34 30 22Z'/%3E%3Cpath transform='translate(128 66) rotate(24) scale(.3)' d='M30 22C30 14 40 12 50 17C60 12 70 14 70 22C70 34 66 40 65 52C64 66 62 84 56 84C51 84 52 66 50 62C48 66 49 84 44 84C38 84 36 66 35 52C34 40 30 34 30 22Z'/%3E%3Cpath transform='translate(54 128) rotate(-18) scale(.28)' d='M30 22C30 14 40 12 50 17C60 12 70 14 70 22C70 34 66 40 65 52C64 66 62 84 56 84C51 84 52 66 50 62C48 66 49 84 44 84C38 84 36 66 35 52C34 40 30 34 30 22Z'/%3E%3Cpath d='M92 30v10M87 35h10M30 100v8M26 104h8M146 132v8M142 136h8'/%3E%3Ccircle cx='100' cy='96' r='2'/%3E%3Ccircle cx='20' cy='150' r='1.6'/%3E%3Ccircle cx='150' cy='20' r='1.6'/%3E%3C/g%3E%3C/svg%3E");
+  --pattern: none;
 }
 * { box-sizing: border-box; }
+:root[data-theme="light"] { color-scheme: light; }
+.brand { display: flex; align-items: center; gap: 10px; }
+.logo { width: 34px; height: 34px; flex: none; }
 body {
   background-color: var(--bg); background-image: var(--pattern); background-size: 170px 170px;
   color: var(--ink);
@@ -88,19 +91,19 @@ h1 { font-family: var(--font-display); font-size: 28px; line-height: 1.05; margi
 .doc span { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .doc small { font-family: var(--font-mono); font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
 
-.card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 16px; box-shadow: 0 1px 2px rgba(15, 30, 60, .05); }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 1px 2px rgba(15, 30, 60, .05); }
 .card h2 { font-family: var(--font-display); font-size: 19px; margin: 0; }
-.step { display: flex; flex-direction: column; gap: 10px; }
-.step + .step { border-top: 1px dashed var(--line); padding-top: 14px; }
+.step { display: flex; flex-direction: column; gap: 8px; }
+.step + .step { border-top: 1px dashed var(--line); padding-top: 10px; }
 .sh { display: flex; align-items: center; gap: 8px; font-family: var(--font-display); font-weight: 600; font-size: 15px; }
 .sh i { font-style: normal; font-family: var(--font-mono); font-size: 12px; width: 22px; height: 22px; border-radius: 50%; background: var(--soft); color: var(--accent); display: grid; place-items: center; font-weight: 500; }
 .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
 @media (max-width: 520px) { .row2 { grid-template-columns: 1fr; } .row3 { grid-template-columns: 1fr 1fr; } .row3 > :first-child { grid-column: span 2; } }
 .fld { display: flex; flex-direction: column; gap: 4px; font-size: 12.5px; color: var(--muted); font-weight: 500; min-width: 0; }
-.lbl { font-size: 12.5px; color: var(--muted); font-weight: 500; display: flex; justify-content: space-between; align-items: center; gap: 8px; min-height: 28px; flex-wrap: wrap; }
+.lbl { font-size: 12.5px; color: var(--muted); font-weight: 500; display: flex; justify-content: space-between; align-items: center; gap: 8px; min-height: 22px; flex-wrap: wrap; }
 .lbl b { color: var(--ink); font-family: var(--font-mono); font-weight: 500; font-size: 13px; overflow-wrap: anywhere; text-align: right; }
-input { width: 100%; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 10px 11px; font-size: 16px; color: var(--ink); }
+input { width: 100%; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; font-size: 16px; color: var(--ink); }
 .stepper { display: grid; grid-template-columns: 44px 1fr 44px; gap: 4px; }
 .stepper button { border: 1px solid var(--line); background: var(--surface-2); border-radius: 8px; font-size: 20px; line-height: 1; }
 .stepper input { text-align: center; }
@@ -109,16 +112,16 @@ input { width: 100%; background: var(--surface); border: 1px solid var(--line); 
 @media (min-width: 560px) { .teeth { grid-template-columns: 1fr 1fr; gap: 10px 18px; } }
 .quad small { display: block; font-family: var(--font-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
 .qrow { display: grid; grid-template-columns: repeat(8, 1fr); gap: 4px; }
-.t { height: 40px; min-width: 0; padding: 0; border: 1px solid var(--line); background: var(--surface-2); border-radius: 8px; font-family: var(--font-mono); font-size: 13px; font-variant-numeric: tabular-nums; }
+.t { height: 36px; min-width: 0; padding: 0; border: 1px solid var(--line); background: var(--surface-2); border-radius: 8px; font-family: var(--font-mono); font-size: 13px; font-variant-numeric: tabular-nums; }
 .t[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 600; }
 
-.types { display: flex; flex-wrap: wrap; gap: 8px; }
-.ty { border: 1px solid var(--line); background: var(--surface-2); border-radius: 999px; padding: 10px 16px; font-weight: 500; min-height: 44px; }
+.types { display: flex; flex-wrap: wrap; gap: 6px; }
+.ty { border: 1px solid var(--line); background: var(--surface-2); border-radius: 999px; padding: 6px 12px; font-weight: 500; font-size: 14px; min-height: 36px; }
 .ty.sm { min-height: 34px; padding: 5px 12px; font-size: 13.5px; }
 .ty[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
 .ty.other { border-style: dashed; }
-.jaws { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-.jaws .ty { border-radius: 10px; text-align: center; padding: 10px 8px; }
+.jaws { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.jaws .ty { border-radius: 10px; text-align: center; padding: 6px 4px; font-size: 13.5px; }
 
 .acts { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; align-items: center; }
 .acts .sum { margin-right: auto; font-variant-numeric: tabular-nums; font-size: 16px; font-weight: 600; }
@@ -148,6 +151,36 @@ td.mono { font-family: var(--font-mono); font-size: 13px; }
 .rc b { font-weight: 600; overflow-wrap: anywhere; }
 .rc span { color: var(--muted); font-size: 13px; overflow-wrap: anywhere; }
 .rc .amt { grid-column: 2; grid-row: 1 / span 2; align-self: center; font-variant-numeric: tabular-nums; font-weight: 600; }
+.stephead { display: flex; justify-content: space-between; align-items: baseline; }
+.stephead b { font-family: var(--font-display); font-size: 17px; }
+.stephead span { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+.dots { display: flex; gap: 5px; }
+.dots i { flex: 1; height: 4px; border-radius: 2px; background: var(--line); }
+.dots i.on { background: var(--accent); }
+.crumb { text-align: left; border: 0; background: var(--surface-2); border-radius: 8px; padding: 7px 10px; font-size: 13.5px; color: var(--muted); }
+.crumb b { color: var(--ink); font-weight: 600; }
+.navrow { display: flex; gap: 8px; }
+.navrow .btn { flex: 1; min-height: 44px; }
+.navrow .btn.primary { flex: 2; }
+.rows { display: flex; flex-direction: column; gap: 8px; }
+.rw { text-align: left; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; display: flex; flex-direction: column; gap: 2px; }
+.rw-top { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+.rw-top b { font-weight: 600; overflow-wrap: anywhere; }
+.rw-top .amt { font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.rw-meta { color: var(--muted); font-size: 13px; overflow-wrap: anywhere; }
+.rnote { color: var(--muted); font-size: 12px; margin-top: 2px; }
+.pick { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 8px; text-align: left; border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 9px 11px; min-height: 42px; font-size: 16px; }
+.pick.empty-v { color: var(--muted); }
+.pick span { color: var(--muted); font-size: 12px; }
+.sheet-bg { position: fixed; inset: 0; background: rgba(0, 0, 0, .42); z-index: 40; }
+.sheet { position: fixed; left: 50%; transform: translateX(-50%); bottom: 0; width: min(100%, 560px); max-height: 72vh; overflow-y: auto; background: var(--surface); border-radius: 16px 16px 0 0; z-index: 41; padding: 6px 8px calc(10px + env(safe-area-inset-bottom, 0px)); box-shadow: 0 -6px 24px rgba(0, 0, 0, .18); }
+.sheet h3 { font-family: var(--font-display); font-size: 15px; margin: 8px 8px 4px; color: var(--muted); font-weight: 600; }
+.sheet button { display: flex; justify-content: space-between; align-items: center; width: 100%; text-align: left; border: 0; border-bottom: 1px solid var(--line); background: transparent; padding: 0 8px; min-height: 48px; font-size: 16px; }
+.sheet button:last-child { border-bottom: 0; }
+.sheet button[aria-pressed="true"] { color: var(--accent); font-weight: 600; }
+.sheet button[aria-pressed="true"]::after { content: "✓"; }
+.sheet .other { color: var(--muted); }
+.slot { display: flex; flex-direction: column; gap: 4px; padding: 0 0 0 10px; border-left: 3px solid var(--soft); }
 .cur { display: inline-flex; gap: 6px; }
 .cur button { border: 1px solid var(--line); background: var(--surface-2); border-radius: 999px; padding: 7px 16px; color: var(--muted); }
 .cur button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
@@ -188,7 +221,7 @@ td.mono { font-family: var(--font-mono); font-size: 13px; }
     uz: {
       months: ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentabr", "Oktabr", "Noyabr", "Dekabr"],
       title: "Protez hisobi", tab_add: "Qo'shish", tab_report: "Hisob", tab_settings: "Sozlamalar",
-      settings: "Sozlamalar", cur_label: "Pul birligi", cur_sum: "so'm",
+      settings: "Sozlamalar", cur_label: "Pul birligi", jaw_split: "Har xil turda", price_up: "Yuqori jag narxi", price_low: "Pastki jag narxi", note: "Izoh (ixtiyoriy)", p_note: "Izoh",
       banner: "PDF hisobotning tepasida laboratoriya nomi va telefon raqami chiqishi uchun avval Sozlamalarni to'ldiring.", fill: "Sozlash",
       lab_name: "Laboratoriya nomi", phone: "Telefon", address: "Manzil (ixtiyoriy)", save: "Saqlash",
       backup: "Zaxira nusxa", backup_dl: "Yuklab olish", backup_restore: "Tiklash", backup_note: "Ma'lumotlar shu telefonda saqlanadi. Vaqti-vaqti bilan zaxira nusxa oling.",
@@ -197,10 +230,10 @@ td.mono { font-family: var(--font-mono); font-size: 13px; }
       jaw: "Qaysi jag", jaw_up: "Yuqori jag", jaw_low: "Pastki jag", jaw_both: "Ikkala jag",
       teeth_toggle: "Tishlarni belgilash (ixtiyoriy)", teeth_hide: "Tishlarni yashirish", clear: "Tozalash",
       q1: "Yuqori o'ng", q2: "Yuqori chap", q3: "Pastki chap", q4: "Pastki o'ng",
-      type: "Ish turi", other: "Boshqa…", type_ph: "Ish turini yozing",
+      type: "Ish turi", pick_type: "Ish turini tanlang", theme: "Ko'rinish", th_auto: "Avtomatik", th_light: "Kunduzgi", th_dark: "Tungi", next: "Keyingi", back: "Orqaga", t_names: "Doktor va bemor ismini kiriting", other: "Boshqa…", type_ph: "Ish turini yozing",
       ty_qisman: "Qisman olinadigan protez", ty_toliq: "To'liq olinadigan protez", ty_bioplast: "Bioplast", ty_termoplast: "Termoplast",
       ty_kapalak: "Kapalak mikroprotez", ty_bugel: "Bugel protez", ty_attachment: "Attachmentli protez", ty_tamir: "Ta'mirlash", ty_qoshiq: "Individual qoshiq",
-      date: "Sana", qty: "Soni", price: "1 dona narxi ({cur})", sum: "Summa",
+      date: "Sana", qty: "Soni", price: "1 dona narxi", sum: "Summa",
       add: "Qo'shish", cancel: "Bekor", del: "O'chirish", del_sure: "Aniq o'chirilsinmi?",
       recent: "Oxirgi qo'shilganlar", recent_hint: "Tahrirlash uchun bosing",
       month_total: "Oy bo'yicha jami", add_first: "Ish qo'shish",
@@ -217,7 +250,7 @@ td.mono { font-family: var(--font-mono); font-size: 13px; }
     ru: {
       months: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
       title: "Учёт протезов", tab_add: "Добавить", tab_report: "Счёт", tab_settings: "Настройки",
-      settings: "Настройки", cur_label: "Валюта", cur_sum: "сум",
+      settings: "Настройки", cur_label: "Валюта", jaw_split: "Разные виды", price_up: "Цена верхней", price_low: "Цена нижней", note: "Примечание (необязательно)", p_note: "Примечание",
       banner: "Чтобы название лаборатории и телефон выводились в шапке PDF, сначала заполните Настройки.", fill: "Заполнить",
       lab_name: "Название лаборатории", phone: "Телефон", address: "Адрес (необязательно)", save: "Сохранить",
       backup: "Резервная копия", backup_dl: "Скачать", backup_restore: "Восстановить", backup_note: "Данные хранятся на этом телефоне. Периодически делайте резервную копию.",
@@ -226,10 +259,10 @@ td.mono { font-family: var(--font-mono); font-size: 13px; }
       jaw: "Какая челюсть", jaw_up: "Верхняя челюсть", jaw_low: "Нижняя челюсть", jaw_both: "Обе челюсти",
       teeth_toggle: "Отметить зубы (необязательно)", teeth_hide: "Скрыть зубы", clear: "Очистить",
       q1: "Верхние правые", q2: "Верхние левые", q3: "Нижние левые", q4: "Нижние правые",
-      type: "Вид работы", other: "Другое…", type_ph: "Введите вид работы",
+      type: "Вид работы", pick_type: "Выберите вид работы", theme: "Оформление", th_auto: "Авто", th_light: "Светлая", th_dark: "Тёмная", next: "Далее", back: "Назад", t_names: "Введите врача и пациента", other: "Другое…", type_ph: "Введите вид работы",
       ty_qisman: "Частичный съёмный протез", ty_toliq: "Полный съёмный протез", ty_bioplast: "Биопласт", ty_termoplast: "Термопласт",
       ty_kapalak: "Микропротез «бабочка»", ty_bugel: "Бюгельный протез", ty_attachment: "Протез с аттачменами", ty_tamir: "Ремонт", ty_qoshiq: "Индивидуальная ложка",
-      date: "Дата", qty: "Кол-во", price: "Цена за 1 шт. ({cur})", sum: "Сумма",
+      date: "Дата", qty: "Кол-во", price: "Цена за 1 шт.", sum: "Сумма",
       add: "Добавить", cancel: "Отмена", del: "Удалить", del_sure: "Точно удалить?",
       recent: "Недавно добавленные", recent_hint: "Нажмите, чтобы изменить",
       month_total: "Итого за месяц", add_first: "Добавить работу",
@@ -262,7 +295,7 @@ td.mono { font-family: var(--font-mono); font-size: 13px; }
     settings: '<svg viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg>'
   };
   var COL = "hisob";
-  var LS_ROWS = "protez-hisob-rows-v1", LS_SET = "protez-hisob-set-v1", LS_LANG = "protez-hisob-lang-v1";
+  var LS_ROWS = "protez-hisob-rows-v1", LS_SET = "protez-hisob-set-v1", LS_LANG = "protez-hisob-lang-v1", LS_THEME = "protez-hisob-theme-v1";
 
   var lang = "uz";
   try { var sl = localStorage.getItem(LS_LANG); if (sl === "uz" || sl === "ru") lang = sl; else if (/^ru/i.test(navigator.language || "")) lang = "ru"; } catch (e) {}
@@ -278,9 +311,16 @@ td.mono { font-family: var(--font-mono); font-size: 13px; }
   var db = null, ready = false, setReady = false, downloads = null;
   var C = window.claude, inClaude = !!(C && C.use);
   var now = new Date();
-  var ui = { tab: "add", returnTab: "add", month: now.getFullYear() + "-" + pad(now.getMonth() + 1), doctor: "", editId: "", pendingDel: false, busy: false, pdfLang: null, draft: null, lastUrl: "" };
-  ui.draft = newDraft("", null);
+  var ui = { step: 1, tab: "add", returnTab: "add", month: now.getFullYear() + "-" + pad(now.getMonth() + 1), doctor: "", editId: "", pendingDel: false, busy: false, pdfLang: null, draft: null, lastUrl: "" };
+  ui.draft = newDraft("", null); ui.sheet = null;
 
+  var themeMode = "auto";
+  try { themeMode = localStorage.getItem(LS_THEME) || "auto"; } catch (e) {}
+  function applyTheme() {
+    var h = document.documentElement;
+    if (themeMode === "light" || themeMode === "dark") h.setAttribute("data-theme", themeMode); else h.removeAttribute("data-theme");
+  }
+  applyTheme();
   function $(s) { return document.querySelector(s); }
   function pad(n) { return String(n).padStart(2, "0"); }
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
@@ -290,8 +330,19 @@ td.mono { font-family: var(--font-mono); font-size: 13px; }
     var p = s.split("."); p[0] = p[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");
     return (neg ? "-" : "") + p.join(".");
   }
-  function moneyL(L, n) { return settings.cur === "$" ? "$" + fmt(n) : fmt(n) + " " + tr(L, "cur_sum"); }
-  function money(n) { return moneyL(lang, n); }
+  function curOf(r) { return r && r.cur ? (r.cur === "USD" ? "USD" : "UZS") : (settings.cur === "$" ? "USD" : "UZS"); }
+  function moneyC(n, c) { return fmt(n) + " " + (c === "USD" ? "USD" : "UZS"); }
+  function totalsBy(list) {
+    var m = { UZS: 0, USD: 0 }, seen = {};
+    list.forEach(function (r) { var c = curOf(r); m[c] += sum(r); seen[c] = 1; });
+    return ["UZS", "USD"].filter(function (c) { return seen[c]; }).map(function (c) { return [c, m[c]]; });
+  }
+  function totalsText(list) { var t = totalsBy(list); return t.length ? t.map(function (x) { return moneyC(x[1], x[0]); }).join(" + ") : moneyC(0, "UZS"); }
+  function doctorCur(doctor) {
+    var d = (doctor || "").trim().toLowerCase(); if (!d) return "";
+    var hit = recent().filter(function (r) { return String(r.doctor).trim().toLowerCase() === d; })[0];
+    return hit ? curOf(hit) : "";
+  }
   function today() { var d = new Date(); return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()); }
   function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
   function sum(r) { return (Number(r.qty) || 0) * (Number(r.price) || 0); }
@@ -309,7 +360,10 @@ td.mono { font-family: var(--font-mono); font-size: 13px; }
   }
   function norm(r) { if (r && TYPE_ALIAS[r.type]) r.type = TYPE_ALIAS[r.type]; return r; }
   function newDraft(doctor, date) {
-    return { id: "", doctor: doctor || "", patient: "", jaw: "", teeth: [], teethOpen: false, type: "", custom: false, qty: 1, qtyTouched: false, price: "", date: date || "" };
+    var last = recent()[0]; ui.step = 1;
+    return { id: "", doctor: doctor || "", patient: "", jaw: "", teeth: [], teethOpen: false, type: "", custom: false, qty: 1, qtyTouched: false, price: "", date: date || "",
+      cur: doctorCur(doctor) || (last ? curOf(last) : "UZS"), curTouched: false, note: "",
+      typeUp: "", customUp: false, priceUp: "", typeLow: "", customLow: false, priceLow: "" };
   }
   function defaultDate() { var d = today(); return d.slice(0, 7) === ui.month ? d : ui.month + "-01"; }
   function needSettings() { return !settings.labName || !settings.phone; }
@@ -338,7 +392,7 @@ td.mono { font-family: var(--font-mono); font-size: 13px; }
   function inMonth() { return rows.filter(function (r) { return (r.date || "").slice(0, 7) === ui.month; }); }
   function doctorsOf(list) {
     var m = {};
-    list.forEach(function (r) { var k = r.doctor; (m[k] || (m[k] = { name: k, n: 0, total: 0 })); m[k].n++; m[k].total += sum(r); });
+    list.forEach(function (r) { var k = r.doctor; (m[k] || (m[k] = { name: k, n: 0, rows: [] })); m[k].n++; m[k].rows.push(r); });
     return Object.keys(m).map(function (k) { return m[k]; }).sort(function (a, b) { return a.name.localeCompare(b.name); });
   }
   function byOrder(a, b) { return (a.date || "") < (b.date || "") ? -1 : (a.date || "") > (b.date || "") ? 1 : (a.createdAt || 0) - (b.createdAt || 0); }
@@ -348,8 +402,8 @@ td.mono { font-family: var(--font-mono); font-size: 13px; }
     recent().forEach(function (r) { var v = r[field]; if (v && !seen[v]) { seen[v] = 1; out.push(v); } });
     return out;
   }
-  function lastPrice(type, doctor) {
-    var ty = String(type).toLowerCase(), d = (doctor || "").toLowerCase(), rs = recent();
+  function lastPrice(type, doctor, cur) {
+    var ty = String(type).toLowerCase(), d = (doctor || "").toLowerCase(), rs = recent().filter(function (r) { return curOf(r) === cur; });
     var hit = rs.filter(function (r) { return String(r.type).toLowerCase() === ty && r.doctor.toLowerCase() === d; })[0] ||
       rs.filter(function (r) { return String(r.type).toLowerCase() === ty; })[0];
     return hit ? hit.price : null;
@@ -373,7 +427,7 @@ td.mono { font-family: var(--font-mono); font-size: 13px; }
     if (!d.date) d.date = defaultDate();
     var h = '<div style="display:flex;flex-direction:column;gap:16px">';
     h += ui.tab === "add" ? addView() : ui.tab === "report" ? reportView() : settingsView();
-    h += '</div>';
+    h += '</div>' + (ui.tab === "add" ? sheetHtml() : "");
     main.innerHTML = h;
     updateSum();
   }
@@ -382,11 +436,11 @@ td.mono { font-family: var(--font-mono); font-size: 13px; }
     var h = "";
     if (needSettings()) h += '<div class="banner"><span>' + esc(t("banner")) + '</span><button class="btn" data-tab="settings">' + esc(t("fill")) + '</button></div>';
     h += formHtml();
-    var rc = recent().slice(0, 5);
+    var rc = recent().slice(0, 3);
     if (rc.length) {
       h += '<div class="sec-head"><h2 style="font-size:17px">' + esc(t("recent")) + '</h2><p class="note">' + esc(t("recent_hint")) + '</p></div><div class="recent">' + rc.map(function (r) {
         var meta = [typeLabel(lang, r.type), formulaText(lang, r)].filter(Boolean).join(" · ");
-        return '<button class="rc" data-edit="' + r.id + '"><b>' + esc(r.patient) + '</b><span>' + esc(r.doctor + " · " + meta) + '</span><div class="amt">' + esc(money(sum(r))) + '</div></button>';
+        return '<button class="rc" data-edit="' + r.id + '"><b>' + esc(r.patient) + '</b><span>' + esc(r.doctor + " · " + meta) + '</span><div class="amt">' + esc(moneyC(sum(r), curOf(r))) + '</div></button>';
       }).join("") + '</div>';
     }
     return h;
@@ -399,19 +453,20 @@ td.mono { font-family: var(--font-mono); font-size: 13px; }
     if (!list.length) {
       return '<div class="empty"><b>' + esc(t("empty_t", { month: monthLabel(ui.month) })) + '</b><span>' + esc(t("empty_p")) + '</span><button class="btn primary" data-tab="add">' + esc(t("add_first")) + '</button></div>';
     }
-    var monthTotal = docs.reduce(function (a, x) { return a + x.total; }, 0);
-    var h = '<div class="monthsum"><span class="note">' + esc(t("month_total")) + '</span><span class="big">' + esc(money(monthTotal)) + '</span></div>';
+    var h = '<div class="monthsum"><span class="note">' + esc(t("month_total")) + '</span><span class="big">' + esc(totalsText(list)) + '</span></div>';
     h += '<div class="docs">' + docs.map(function (x) {
-      return '<button class="doc" data-doc="' + esc(x.name) + '" aria-pressed="' + (x.name === ui.doctor) + '"><span>' + esc(x.name) + '</span><small>' + esc(t("works_money", { n: x.n, sum: money(x.total) })) + '</small></button>';
+      return '<button class="doc" data-doc="' + esc(x.name) + '" aria-pressed="' + (x.name === ui.doctor) + '"><span>' + esc(x.name) + '</span><small>' + esc(t("works_money", { n: x.n, sum: totalsText(x.rows) })) + '</small></button>';
     }).join("") + '</div>';
     h += '<div class="sec-head"><h2>' + esc(ui.doctor) + '</h2><p class="note">' + esc(t("rows_note", { n: mine.length })) + '</p></div>';
-    h += '<div class="tablewrap"><table><thead><tr><th>' + t("th_date") + '</th><th>' + t("th_patient") + '</th><th>' + t("th_formula") + '</th><th>' + t("th_type") + '</th><th class="r">' + t("th_qty") + '</th><th class="r">' + t("th_price") + '</th><th class="r">' + t("th_sum") + '</th></tr></thead><tbody>' +
-      mine.map(function (r) {
-        return '<tr data-edit="' + r.id + '"><td class="mono">' + dm(r.date) + '</td><td>' + esc(r.patient) + '</td><td class="mono">' + esc(formulaText(lang, r)) + '</td><td>' + esc(typeLabel(lang, r.type)) + '</td><td class="r">' + fmt(r.qty) + '</td><td class="r">' + fmt(r.price) + '</td><td class="r"><b>' + fmt(sum(r)) + '</b></td></tr>';
-      }).join("") + '</tbody></table></div>';
-    var tot = mine.reduce(function (a, r) { return a + sum(r); }, 0), q = mine.reduce(function (a, r) { return a + (Number(r.qty) || 0); }, 0);
+    h += '<div class="rows">' + mine.map(function (r) {
+      var meta = [typeLabel(lang, r.type), formulaText(lang, r)].filter(Boolean).join(" · ");
+      return '<button class="rw" data-edit="' + r.id + '"><div class="rw-top"><b>' + esc(r.patient) + '</b><span class="amt">' + esc(moneyC(sum(r), curOf(r))) + '</span></div>' +
+        '<div class="rw-meta">' + esc(dm(r.date) + " · " + meta) + '</div><div class="rw-meta">' + fmt(r.qty) + ' × ' + fmt(r.price) + ' ' + curOf(r) + '</div>' +
+        (r.note ? '<div class="rnote">' + esc(r.note) + '</div>' : '') + '</button>';
+    }).join("") + '</div>';
+    var tot = totalsText(mine), q = mine.reduce(function (a, r) { return a + (Number(r.qty) || 0); }, 0);
     var pl = ui.pdfLang || lang;
-    h += '<div class="totalbar"><div><div class="cap">' + esc(t("total_cap", { doc: ui.doctor, month: monthLabel(ui.month), q: fmt(q) })) + '</div><div class="big">' + esc(money(tot)) + '</div></div>' +
+    h += '<div class="totalbar"><div><div class="cap">' + esc(t("total_cap", { doc: ui.doctor, month: monthLabel(ui.month), q: fmt(q) })) + '</div><div class="big">' + esc(tot) + '</div></div>' +
       (downloads ? '<div class="pdfbox"><div class="pl"><span>' + esc(t("pdf_lang")) + '</span><span class="seg small"><button data-pdflang="uz" aria-pressed="' + (pl === "uz") + '">UZ</button><button data-pdflang="ru" aria-pressed="' + (pl === "ru") + '">RU</button></span></div>' +
         '<button class="btn primary" data-act="pdf"' + (ui.busy ? " disabled" : "") + '>' + esc(ui.busy ? t("pdf_busy") : t("pdf_btn")) + '</button></div>' : '<p class="note" style="max-width:260px">' + esc(t("pdf_na")) + '</p>') + '</div>';
     if (ui.lastUrl && !inClaude) h += '<p class="note">' + esc(t("pdf_open")) + ' <a href="' + ui.lastUrl + '" target="_blank" rel="noopener" style="color:var(--accent)">' + esc(t("pdf_open_a")) + '</a></p>';
@@ -419,22 +474,41 @@ td.mono { font-family: var(--font-mono); font-size: 13px; }
   }
 
   function settingsView() {
-    return '<div class="card"><h2>' + esc(t("settings")) + '</h2>' +
+    var themeCard = '<div class="card"><h2>' + esc(t("theme")) + '</h2><div class="seg" role="group" style="align-self:flex-start">' + ["auto", "light", "dark"].map(function (m) {
+      return '<button type="button" data-themeset="' + m + '" aria-pressed="' + (themeMode === m) + '">' + esc(t("th_" + m)) + '</button>';
+    }).join("") + '</div></div>';
+    return themeCard + '<div class="card"><h2>' + esc(t("settings")) + '</h2>' +
       '<div class="row2"><label class="fld">' + esc(t("lab_name")) + '<input id="s-name" autocomplete="off" value="' + esc(settings.labName) + '"></label>' +
       '<label class="fld">' + esc(t("phone")) + '<input id="s-phone" inputmode="tel" autocomplete="off" placeholder="+998 90 000 00 00" value="' + esc(settings.phone) + '"></label></div>' +
       '<label class="fld">' + esc(t("address")) + '<input id="s-addr" autocomplete="off" value="' + esc(settings.address) + '"></label>' +
-      '<div><div class="lbl">' + esc(t("cur_label")) + '</div><div class="cur" role="group"><button data-cur="so\'m" aria-pressed="' + (settings.cur !== "$") + '">' + esc(t("cur_sum")) + '</button><button data-cur="$" aria-pressed="' + (settings.cur === "$") + '">$</button></div></div>' +
       '<div class="acts"><button class="btn primary" data-act="save-settings">' + esc(t("save")) + '</button></div></div>' +
       (db || inClaude ? '' : '<div class="card"><h2>' + esc(t("backup")) + '</h2><div class="acts" style="justify-content:flex-start"><button type="button" class="btn" data-act="backup">' + esc(t("backup_dl")) + '</button><label class="btn" style="cursor:pointer">' + esc(t("backup_restore")) + '<input id="restore" type="file" accept="application/json,.json" hidden></label></div><p class="note">' + esc(t("backup_note")) + '</p></div>');
   }
 
+  function isSplit(d) { return d.jaw === "both" && !d.id; }
+  function typeKeysAll() {
+    return TYPE_KEYS.concat(distinct("type").filter(function (x) { return TYPE_KEYS.indexOf(x) < 0; }).slice(0, 4));
+  }
+  function typeBlock(slot, label) {
+    var d = ui.draft, ty = d["type" + slot], cu = d["custom" + slot];
+    var shown = cu ? t("other") : (ty ? typeLabel(lang, ty) : t("pick_type"));
+    return '<div' + (slot ? ' class="slot"' : '') + '><div class="lbl">' + esc(label) + '</div>' +
+      '<button type="button" class="pick' + (!cu && !ty ? ' empty-v' : '') + '" data-sheetopen="' + slot + '"><b style="font-weight:500">' + esc(shown) + '</b><span>▾</span></button>' +
+      (cu ? '<input id="f-type' + slot + '" placeholder="' + esc(t("type_ph")) + '" value="' + esc(ty) + '">' : '') + '</div>';
+  }
+  function sheetHtml() {
+    if (ui.sheet === null || ui.sheet === undefined) return "";
+    var slot = ui.sheet, d = ui.draft, ty = d["type" + slot], cu = d["custom" + slot];
+    var title = slot === "Up" ? t("jaw_up") : slot === "Low" ? t("jaw_low") : t("type");
+    return '<div class="sheet-bg" data-sheetclose="1"></div><div class="sheet" role="dialog" aria-label="' + esc(title) + '"><h3>' + esc(title) + '</h3>' +
+      typeKeysAll().map(function (k) {
+        return '<button type="button" data-type="' + esc(k) + '" data-slot="' + slot + '" aria-pressed="' + (!cu && ty === k) + '">' + esc(typeLabel(lang, k)) + '</button>';
+      }).join("") + '<button type="button" class="other" data-type-other="1" data-slot="' + slot + '" aria-pressed="' + !!cu + '">' + esc(t("other")) + '</button></div>';
+  }
   function formHtml() {
-    var d = ui.draft, editing = !!d.id;
-    var extra = distinct("type").filter(function (x) { return TYPE_KEYS.indexOf(x) < 0; }).slice(0, 4);
-    var chips = TYPE_KEYS.concat(extra).map(function (k) {
-      return '<button type="button" class="ty" data-type="' + esc(k) + '" aria-pressed="' + (!d.custom && d.type === k) + '">' + esc(typeLabel(lang, k)) + '</button>';
-    }).join("") + '<button type="button" class="ty other" data-type-other="1" aria-pressed="' + !!d.custom + '">' + esc(t("other")) + '</button>';
-    var jaws = ["up", "low", "both"].map(function (j) {
+    var d = ui.draft, editing = !!d.id, split = isSplit(d);
+    var jawList = ["up", "low", "both"];
+    var jaws = jawList.map(function (j) {
       return '<button type="button" class="ty" data-jaw="' + j + '" aria-pressed="' + (d.jaw === j) + '">' + esc(t("jaw_" + j)) + '</button>';
     }).join("");
     var teethBlock = d.teethOpen ? '<div class="teeth">' + QUADS.map(function (q) {
@@ -445,30 +519,48 @@ td.mono { font-family: var(--font-mono); font-size: 13px; }
     var docs = distinct("doctor"), quick = docs.slice(0, 6).map(function (x) {
       return '<button type="button" class="ty sm" data-pickdoc="' + esc(x) + '" aria-pressed="' + (d.doctor === x) + '">' + esc(x) + '</button>';
     }).join("");
-    return '<form class="card" id="f" autocomplete="off"><h2>' + esc(editing ? t("edit_work") : t("new_work")) + '</h2>' +
-      '<div class="step"><div class="sh"><i>1</i>' + esc(t("step1")) + '</div>' +
-      '<div class="row2"><label class="fld">' + esc(t("doctor")) + '<input id="f-doctor" list="dl-doc" required value="' + esc(d.doctor) + '"></label>' +
-      '<label class="fld">' + esc(t("patient")) + '<input id="f-patient" required value="' + esc(d.patient) + '"></label></div>' +
-      (quick ? '<div class="types">' + quick + '</div>' : '') + '</div>' +
-      '<div class="step"><div class="sh"><i>2</i>' + esc(t("step2")) + '</div>' +
-      '<div><div class="lbl">' + esc(t("type")) + '</div><div class="types">' + chips + '</div>' +
-      (d.custom ? '<input id="f-type" style="margin-top:8px" placeholder="' + esc(t("type_ph")) + '" value="' + esc(d.type) + '">' : '') + '</div>' +
-      '<div><div class="lbl">' + esc(t("jaw")) + '</div><div class="jaws">' + jaws + '</div></div>' +
-      '<div><div class="lbl"><button type="button" class="btn link" data-act="toggle-teeth" style="padding-left:0">' + esc(d.teethOpen ? t("teeth_hide") : t("teeth_toggle")) + '</button>' +
-      (d.teeth.length ? '<span><b>' + esc(teethStr(d.teeth)) + '</b> <button type="button" class="btn link" data-act="clear-teeth">' + esc(t("clear")) + '</button></span>' : '') + '</div>' + teethBlock + '</div></div>' +
-      '<div class="step"><div class="sh"><i>3</i>' + esc(t("step3")) + '</div>' +
+    var curBtns = '<span class="seg small" role="group" aria-label="' + esc(t("cur_label")) + '">' + ["UZS", "USD"].map(function (c) {
+      return '<button type="button" data-dcur="' + c + '" aria-pressed="' + (d.cur === c) + '">' + c + '</button>';
+    }).join("") + '</span>';
+    var types = split ? typeBlock("Up", t("jaw_up")) + typeBlock("Low", t("jaw_low")) : '<div>' + typeBlock("", t("type")) + '</div>';
+    var priceRow = split ?
+      '<div class="row3"><label class="fld">' + esc(t("date")) + '<input id="f-date" type="date" required value="' + esc(d.date) + '"></label>' +
+      '<label class="fld">' + esc(t("price_up")) + '<input id="f-priceUp" type="number" min="0" step="any" inputmode="decimal" required value="' + esc(d.priceUp) + '"></label>' +
+      '<label class="fld">' + esc(t("price_low")) + '<input id="f-priceLow" type="number" min="0" step="any" inputmode="decimal" required value="' + esc(d.priceLow) + '"></label></div>' :
       '<div class="row3"><label class="fld">' + esc(t("date")) + '<input id="f-date" type="date" required value="' + esc(d.date) + '"></label>' +
       '<div class="fld">' + esc(t("qty")) + '<div class="stepper"><button type="button" data-qty="-1" aria-label="−">−</button><input id="f-qty" type="number" min="1" step="1" inputmode="numeric" required value="' + esc(d.qty) + '"><button type="button" data-qty="1" aria-label="+">+</button></div></div>' +
-      '<label class="fld">' + esc(t("price", { cur: settings.cur === "$" ? "$" : t("cur_sum") })) + '<input id="f-price" type="number" min="0" step="any" inputmode="decimal" required value="' + esc(d.price) + '"></label></div>' +
-      '<div class="acts"><span class="sum" id="f-sum"></span>' +
-      (editing ? '<button type="button" class="btn danger" data-act="del">' + esc(ui.pendingDel ? t("del_sure") : t("del")) + '</button><button type="button" class="btn" data-act="cancel">' + esc(t("cancel")) + '</button>' : '') +
-      '<button type="submit" class="btn primary">' + esc(editing ? t("save") : t("add")) + '</button></div></div>' +
+      '<label class="fld">' + esc(t("price")) + '<input id="f-price" type="number" min="0" step="any" inputmode="decimal" required value="' + esc(d.price) + '"></label></div>';
+    var step = ui.step || 1, all = editing, sh = function (n) { return all || step === n; };
+    var head = editing ? '<h2>' + esc(t("edit_work")) + '</h2>' :
+      '<div class="dots">' + [1, 2, 3].map(function (n) { return '<i class="' + (n <= step ? 'on' : '') + '"></i>'; }).join("") + '</div>' +
+      '<div class="stephead"><b>' + esc(t("step" + step)) + '</b><span>' + step + ' / 3</span></div>' +
+      (step > 1 ? '<button type="button" class="crumb" data-step="1"><b>' + esc(d.doctor) + '</b> · ' + esc(d.patient) + '</button>' : '');
+    var s1 = '<div class="step"><div class="row2"><label class="fld">' + esc(t("doctor")) + '<input id="f-doctor" list="dl-doc" required value="' + esc(d.doctor) + '"></label>' +
+      '<label class="fld">' + esc(t("patient")) + '<input id="f-patient" required value="' + esc(d.patient) + '"></label></div>' +
+      (quick ? '<div class="types">' + quick + '</div>' : '') + '</div>';
+    var s2 = '<div class="step"><div><div class="lbl">' + esc(t("jaw")) + '</div><div class="jaws">' + jaws + '</div></div>' + types +
+      '<div><div class="lbl"><button type="button" class="btn link" data-act="toggle-teeth" style="padding-left:0">' + esc(d.teethOpen ? t("teeth_hide") : t("teeth_toggle")) + '</button>' +
+      (d.teeth.length ? '<span><b>' + esc(teethStr(d.teeth)) + '</b> <button type="button" class="btn link" data-act="clear-teeth">' + esc(t("clear")) + '</button></span>' : '') + '</div>' + teethBlock + '</div></div>';
+    var s3 = '<div class="step">' + priceRow + '<input id="f-note" placeholder="' + esc(t("note")) + '" value="' + esc(d.note) + '">' +
+      '<div class="acts"><span class="sum" id="f-sum"></span>' + curBtns + '</div></div>';
+    var foot;
+    if (editing) {
+      foot = '<div class="acts"><button type="button" class="btn danger" data-act="del">' + esc(ui.pendingDel ? t("del_sure") : t("del")) + '</button><button type="button" class="btn" data-act="cancel">' + esc(t("cancel")) + '</button>' +
+        '<button type="submit" class="btn primary">' + esc(t("save")) + '</button></div>';
+    } else if (step < 3) {
+      foot = '<div class="navrow">' + (step > 1 ? '<button type="button" class="btn" data-act="prev">' + esc(t("back")) + '</button>' : '') +
+        '<button type="button" class="btn primary" data-act="next">' + esc(t("next")) + ' →</button></div>';
+    } else {
+      foot = '<div class="navrow"><button type="button" class="btn" data-act="prev">' + esc(t("back")) + '</button><button type="submit" class="btn primary">' + esc(t("add")) + '</button></div>';
+    }
+    return '<form class="card" id="f" autocomplete="off">' + head + (sh(1) ? s1 : '') + (sh(2) ? s2 : '') + (sh(3) ? s3 : '') + foot +
       '<datalist id="dl-doc">' + docs.map(function (x) { return '<option value="' + esc(x) + '">'; }).join("") + '</datalist></form>';
   }
   function updateSum() {
     var el = $("#f-sum"); if (!el) return;
     var d = ui.draft;
-    el.textContent = t("sum") + ": " + money((Number(d.qty) || 0) * (Number(d.price) || 0));
+    var tot = isSplit(d) ? (Number(d.priceUp) || 0) + (Number(d.priceLow) || 0) : (Number(d.qty) || 0) * (Number(d.price) || 0);
+    el.textContent = t("sum") + ": " + moneyC(tot, d.cur);
   }
 
   /* ---------- PDF: drawn on a canvas (so Uzbek and Russian letters always display), then written as A4 pages ---------- */
@@ -491,6 +583,7 @@ td.mono { font-family: var(--font-mono); font-size: 13px; }
   }
   function buildPages(L, doctor, list) {
     var W = 794, H = 1123, S = 2, M = 46, pages = [], ctx, y;
+    var tots = totalsBy(list), mixed = tots.length > 1, single = tots.length ? tots[0][0] : "UZS";
     var cols = [["№", 28, "l"], ["th_patient", 112, "l"], ["th_formula", 124, "l"], ["th_type", 152, "l"], ["th_qty", 68, "r"], ["th_price", 100, "r"], ["th_sum", 106, "r"]];
     var xs = [], x = M; cols.forEach(function (c) { xs.push(x); x += c[1]; });
     var INK = "#111", MUT = "#555", LINE = "#bbb";
@@ -509,7 +602,11 @@ td.mono { font-family: var(--font-mono); font-size: 13px; }
     }
     function tableHead() {
       ctx.font = "600 11px " + FONT; ctx.fillStyle = MUT;
-      cols.forEach(function (c, i) { cell((c[0].indexOf("th_") === 0 ? tr(L, c[0]) : c[0]).toUpperCase(), i, y + 12); });
+      cols.forEach(function (c, i) {
+        var h = c[0].indexOf("th_") === 0 ? tr(L, c[0]) : c[0];
+        if ((i === 5 || i === 6) && !mixed) h += " (" + single + ")";
+        cell(h.toUpperCase(), i, y + 12);
+      });
       y += 20; ctx.strokeStyle = INK; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(M, y); ctx.lineTo(W - M, y); ctx.stroke(); y += 6;
     }
     newPage();
@@ -527,26 +624,35 @@ td.mono { font-family: var(--font-mono); font-size: 13px; }
       ctx.fillStyle = INK; ctx.font = "600 14px " + FONT; ctx.fillText(p[1], M + 130, y); y += 22;
     });
     y += 12; tableHead();
-    var total = 0, qtySum = 0;
+    var qtySum = 0;
     list.forEach(function (r, idx) {
       ctx.font = "400 13px " + FONT;
       var f = formulaText(L, r), ty = typeLabel(L, r.type);
-      var n = Math.max(wrap(ctx, r.patient, cols[1][1] - 12).length, wrap(ctx, f, cols[2][1] - 12).length, wrap(ctx, ty, cols[3][1] - 12).length);
-      var rh = n * 17 + 10;
+      var cp = fmt(r.price) + (mixed ? " " + curOf(r) : ""), cs = fmt(sum(r)) + (mixed ? " " + curOf(r) : "");
+      var n = Math.max(wrap(ctx, r.patient, cols[1][1] - 12).length, wrap(ctx, f, cols[2][1] - 12).length, wrap(ctx, ty, cols[3][1] - 12).length,
+        wrap(ctx, cp, cols[5][1] - 12).length, wrap(ctx, cs, cols[6][1] - 12).length);
+      var nl = [];
+      if (r.note) { ctx.font = "400 12px " + FONT; nl = wrap(ctx, tr(L, "p_note") + ": " + r.note, cols[1][1] + cols[2][1] + cols[3][1] - 12); ctx.font = "400 13px " + FONT; }
+      var rh = n * 17 + 10 + nl.length * 15;
       if (y + rh > H - M - 40) { newPage(); tableHead(); }
       ctx.font = "400 13px " + FONT;
       var by = y + 15;
       ctx.fillStyle = MUT; cell(String(idx + 1), 0, by);
       ctx.fillStyle = INK; cell(r.patient, 1, by); cell(f, 2, by); cell(ty, 3, by);
-      cell(fmt(r.qty), 4, by); cell(fmt(r.price), 5, by); ctx.font = "600 13px " + FONT; cell(fmt(sum(r)), 6, by);
+      cell(fmt(r.qty), 4, by); cell(cp, 5, by); ctx.font = "600 13px " + FONT; cell(cs, 6, by);
+      if (nl.length) {
+        ctx.font = "400 12px " + FONT; ctx.fillStyle = MUT; ctx.textAlign = "left";
+        nl.forEach(function (l, k) { ctx.fillText(l, xs[1] + 6, by + (n - 1) * 17 + 15 + k * 15); });
+      }
       y += rh; ctx.strokeStyle = "#ddd"; ctx.lineWidth = 0.7; ctx.beginPath(); ctx.moveTo(M, y); ctx.lineTo(W - M, y); ctx.stroke();
-      total += sum(r); qtySum += Number(r.qty) || 0;
+      qtySum += Number(r.qty) || 0;
     });
-    if (y + 80 > H - M) newPage();
+    if (y + 80 + Math.max(0, tots.length - 1) * 34 > H - M) newPage();
     y += 22; ctx.strokeStyle = INK; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(M, y - 12); ctx.lineTo(W - M, y - 12); ctx.stroke();
     ctx.textAlign = "left"; ctx.fillStyle = MUT; ctx.font = "400 13px " + FONT; ctx.fillText(tr(L, "p_qty_total", { n: fmt(qtySum) }), M, y + 6);
     ctx.textAlign = "right"; ctx.fillStyle = INK; ctx.font = "500 14px " + FONT; ctx.fillText(tr(L, "p_total"), W - M, y + 6);
-    ctx.font = "700 26px " + DISPLAY; ctx.fillText(moneyL(L, total), W - M, y + 36);
+    ctx.font = "700 26px " + DISPLAY;
+    (tots.length ? tots : [["UZS", 0]]).forEach(function (x, k) { ctx.fillText(moneyC(x[1], x[0]), W - M, y + 36 + k * 34); });
     pages.forEach(function (c, i) {
       var g = c.getContext("2d"); g.setTransform(S, 0, 0, S, 0, 0); g.textAlign = "center"; g.fillStyle = "#777"; g.font = "400 11px " + FONT;
       g.fillText((settings.labName ? settings.labName + " · " : "") + (i + 1) + " / " + pages.length, W / 2, H - 22);
@@ -602,7 +708,7 @@ td.mono { font-family: var(--font-mono); font-size: 13px; }
   }
 
   /* ---------- events ---------- */
-  function go(tab) { ui.tab = tab; render(); window.scrollTo(0, 0); }
+  function go(tab) { ui.sheet = null; ui.tab = tab; render(); window.scrollTo(0, 0); }
   function shiftMonth(n) {
     var p = ui.month.split("-").map(Number), dt = new Date(p[0], p[1] - 1 + n, 1);
     ui.month = dt.getFullYear() + "-" + pad(dt.getMonth() + 1); ui.editId = ""; ui.pendingDel = false;
@@ -610,9 +716,23 @@ td.mono { font-family: var(--font-mono); font-size: 13px; }
   }
   $("#prev").addEventListener("click", function () { shiftMonth(-1); });
   $("#next").addEventListener("click", function () { shiftMonth(1); });
-  function applyAutoPrice() {
-    var d = ui.draft;
-    if (d.type && d.price === "") { var p = lastPrice(d.type, d.doctor); if (p != null) d.price = p; }
+  function applyAutoPrice(slot) {
+    var d = ui.draft; slot = slot || "";
+    var ty = d["type" + slot];
+    if (ty && d["price" + slot] === "") { var p = lastPrice(ty, d.doctor, d.cur); if (p != null) d["price" + slot] = p; }
+  }
+  function goNext() {
+    var d = ui.draft, st = ui.step || 1;
+    if (st === 1) { if (!(d.doctor || "").trim() || !(d.patient || "").trim()) { toast(t("t_names")); return; } syncDocCur(); }
+    if (st === 2) {
+      var ok = isSplit(d) ? (d.typeUp || "").trim() && (d.typeLow || "").trim() : (d.type || "").trim();
+      if (!ok) { toast(t("t_type")); return; }
+    }
+    ui.step = Math.min(3, st + 1); render(); window.scrollTo(0, 0);
+  }
+  function syncDocCur() {
+    var d = ui.draft; if (d.id || d.curTouched) return;
+    var c = doctorCur(d.doctor); if (c) d.cur = c;
   }
   function download(name, blob) {
     var url = URL.createObjectURL(blob), a = document.createElement("a");
@@ -622,19 +742,31 @@ td.mono { font-family: var(--font-mono); font-size: 13px; }
   function endEdit() { ui.editId = ""; ui.pendingDel = false; ui.draft = newDraft(ui.doctor, null); var back = ui.returnTab || "add"; ui.returnTab = "add"; go(back); }
   document.addEventListener("click", function (e) {
     var tg = e.target, el;
+    if ((el = tg.closest("[data-themeset]"))) {
+      themeMode = el.dataset.themeset; try { localStorage.setItem(LS_THEME, themeMode); } catch (x) {}
+      if ($("#s-name")) { settings.labName = $("#s-name").value.trim(); settings.phone = $("#s-phone").value.trim(); settings.address = $("#s-addr").value.trim(); }
+      applyTheme(); return render();
+    }
+    if (tg.closest("[data-step]")) { ui.step = 1; render(); return window.scrollTo(0, 0); }
+    if (tg.closest("[data-sheetclose]")) { ui.sheet = null; return render(); }
+    if ((el = tg.closest("[data-sheetopen]"))) { ui.sheet = el.dataset.sheetopen; return render(); }
     if ((el = tg.closest("[data-lang]"))) {
       lang = el.dataset.lang; try { localStorage.setItem(LS_LANG, lang); } catch (x) {} ui.pdfLang = null; return render();
     }
     if ((el = tg.closest("[data-tab]"))) { if (ui.editId && el.dataset.tab !== "add") { ui.editId = ""; ui.pendingDel = false; ui.draft = newDraft(ui.doctor, null); ui.returnTab = "add"; } return go(el.dataset.tab); }
     if ((el = tg.closest("[data-pdflang]"))) { ui.pdfLang = el.dataset.pdflang; return render(); }
     if ((el = tg.closest("[data-doc]"))) { ui.doctor = el.dataset.doc; return render(); }
-    if ((el = tg.closest("[data-pickdoc]"))) { ui.draft.doctor = el.dataset.pickdoc; applyAutoPrice(); return render(); }
+    if ((el = tg.closest("[data-pickdoc]"))) { ui.draft.doctor = el.dataset.pickdoc; syncDocCur(); applyAutoPrice(); return render(); }
+    if ((el = tg.closest("[data-dcur]"))) { var dc = ui.draft; dc.cur = el.dataset.dcur; dc.curTouched = true; return render(); }
     if ((el = tg.closest("[data-qty]"))) {
       var dq = ui.draft; dq.qty = Math.max(1, (Number(dq.qty) || 1) + Number(el.dataset.qty)); dq.qtyTouched = true; return render();
     }
     if ((el = tg.closest("[data-jaw]"))) {
       var dj = ui.draft, j = el.dataset.jaw; dj.jaw = dj.jaw === j ? "" : j;
       if (!dj.qtyTouched) dj.qty = dj.jaw === "both" ? 2 : 1;
+      if (isSplit(dj) && dj.type) {
+        ["Up", "Low"].forEach(function (sl) { if (!dj["type" + sl]) { dj["type" + sl] = dj.type; dj["custom" + sl] = dj.custom; dj["price" + sl] = dj.price; } });
+      }
       return render();
     }
     if ((el = tg.closest("[data-tooth]"))) {
@@ -642,26 +774,27 @@ td.mono { font-family: var(--font-mono); font-size: 13px; }
       if (i >= 0) d.teeth.splice(i, 1); else d.teeth.push(n);
       return render();
     }
-    if ((el = tg.closest("[data-type]"))) { ui.draft.type = el.dataset.type; ui.draft.custom = false; applyAutoPrice(); return render(); }
-    if (tg.closest("[data-type-other]")) {
-      var dd = ui.draft; dd.custom = true; if (TYPE_KEYS.indexOf(dd.type) >= 0) dd.type = "";
-      render(); var ti = $("#f-type"); if (ti) ti.focus(); return;
-    }
-    if ((el = tg.closest("[data-cur]"))) {
-      if ($("#s-name")) { settings.labName = $("#s-name").value.trim(); settings.phone = $("#s-phone").value.trim(); settings.address = $("#s-addr").value.trim(); }
-      settings.cur = el.dataset.cur; return render();
+    if ((el = tg.closest("[data-type]"))) { var sl = el.dataset.slot || ""; ui.draft["type" + sl] = el.dataset.type; ui.draft["custom" + sl] = false; applyAutoPrice(sl); ui.sheet = null;
+      if (sl) { var ot = sl === "Up" ? "Low" : "Up", dx = ui.draft; if (!dx["type" + ot]) { dx["type" + ot] = el.dataset.type; dx["custom" + ot] = false; applyAutoPrice(ot); } }
+      return render(); }
+    if ((el = tg.closest("[data-type-other]"))) {
+      var sl2 = el.dataset.slot || "", dd = ui.draft; ui.sheet = null; dd["custom" + sl2] = true; if (TYPE_KEYS.indexOf(dd["type" + sl2]) >= 0) dd["type" + sl2] = "";
+      render(); var ti = $("#f-type" + sl2); if (ti) ti.focus(); return;
     }
     if ((el = tg.closest("[data-edit]"))) {
       var r = rows.filter(function (x) { return x.id === el.dataset.edit; })[0]; if (!r) return;
       ui.returnTab = ui.tab === "report" ? "report" : "add";
       ui.editId = r.id; ui.pendingDel = false;
       var known = TYPE_KEYS.indexOf(r.type) >= 0 || distinct("type").indexOf(r.type) >= 0;
-      ui.draft = { id: r.id, doctor: r.doctor, patient: r.patient, jaw: r.jaw || "", teeth: (r.teeth || []).slice(), teethOpen: (r.teeth || []).length > 0, type: r.type, custom: !known && !!r.type, qty: r.qty, qtyTouched: true, price: r.price, date: r.date, createdAt: r.createdAt };
+      ui.draft = { id: r.id, doctor: r.doctor, patient: r.patient, jaw: r.jaw || "", teeth: (r.teeth || []).slice(), teethOpen: (r.teeth || []).length > 0, type: r.type, custom: !known && !!r.type, qty: r.qty, qtyTouched: true, price: r.price, date: r.date, createdAt: r.createdAt,
+        cur: curOf(r), curTouched: true, note: r.note || "", typeUp: "", customUp: false, priceUp: "", typeLow: "", customLow: false, priceLow: "" };
       return go("add");
     }
     var a = tg.closest("[data-act]"); if (!a) return;
     var act = a.dataset.act;
     if (act === "pdf") return makePdf();
+    if (act === "next") return goNext();
+    if (act === "prev") { ui.step = Math.max(1, (ui.step || 1) - 1); render(); return window.scrollTo(0, 0); }
     if (act === "toggle-teeth") { ui.draft.teethOpen = !ui.draft.teethOpen; return render(); }
     if (act === "clear-teeth") { ui.draft.teeth = []; return render(); }
     if (act === "cancel") return endEdit();
@@ -680,10 +813,10 @@ td.mono { font-family: var(--font-mono); font-size: 13px; }
     var id = e.target.id, d = ui.draft;
     if (id === "f-doctor") d.doctor = e.target.value;
     else if (id === "f-patient") d.patient = e.target.value;
-    else if (id === "f-type") d.type = e.target.value;
     else if (id === "f-date") d.date = e.target.value;
     else if (id === "f-qty") { d.qty = e.target.value; d.qtyTouched = true; }
-    else if (id === "f-price") d.price = e.target.value;
+    else if (id === "f-note") d.note = e.target.value;
+    else if (/^f-(type|price)(Up|Low)?$/.test(id)) { var m = id.match(/^f-(type|price)(Up|Low)?$/); d[m[1] + (m[2] || "")] = e.target.value; }
     else return;
     updateSum();
   });
@@ -705,27 +838,52 @@ td.mono { font-family: var(--font-mono); font-size: 13px; }
       };
       rd.readAsText(e.target.files[0]); return;
     }
-    if (e.target.id === "f-type" || e.target.id === "f-doctor") {
-      var d = ui.draft;
-      if (d.price === "" && d.type) { var p = lastPrice(d.type, d.doctor); if (p != null) { d.price = p; var pi = $("#f-price"); if (pi) pi.value = p; updateSum(); } }
+    var id = e.target.id, d = ui.draft;
+    if (id === "f-doctor") {
+      var before = d.cur; syncDocCur();
+      if (d.cur !== before) { render(); return; }
     }
+    if (id === "f-doctor" || /^f-type(Up|Low)?$/.test(id)) {
+      ["", "Up", "Low"].forEach(function (sl) {
+        if (d["price" + sl] === "" && d["type" + sl]) {
+          var p = lastPrice(d["type" + sl], d.doctor, d.cur);
+          if (p != null) { d["price" + sl] = p; var pi = $("#f-price" + sl); if (pi) pi.value = p; updateSum(); }
+        }
+      });
+    }
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "Enter" || !e.target.closest || !e.target.closest("#f") || e.target.tagName !== "INPUT") return;
+    if (!ui.draft.id && (ui.step || 1) < 3) { e.preventDefault(); goNext(); }
   });
   document.addEventListener("submit", function (e) {
     if (e.target.id !== "f") return; e.preventDefault();
     var d = ui.draft;
+    if (!d.id && (ui.step || 1) < 3) return goNext();
     var doctor = (d.doctor || "").trim(), patient = (d.patient || "").trim(), type = (d.type || "").trim();
     if (!doctor || !patient) return;
-    if (!type) { toast(t("t_type")); return; }
-    var r = {
-      id: d.id || uid(), doctor: doctor, patient: patient, jaw: d.jaw, teeth: d.teeth.slice(), type: type,
-      qty: Math.max(1, Number(d.qty) || 1), price: Number(d.price) || 0, date: d.date || today(), createdAt: d.createdAt || Date.now()
-    };
+    var split = isSplit(d), note = (d.note || "").trim(), now0 = Date.now();
+    if (split ? (!(d.typeUp || "").trim() || !(d.typeLow || "").trim()) : !type) { toast(t("t_type")); return; }
+    var r, extraRows = [];
+    if (split) {
+      var mk = function (jaw, ty, pr, k) {
+        return { id: uid() + k, doctor: doctor, patient: patient, jaw: jaw,
+          teeth: d.teeth.filter(function (n) { return jaw === "up" ? n < 30 : n >= 30; }), type: ty.trim(),
+          qty: 1, price: Number(pr) || 0, cur: d.cur, note: note, date: d.date || today(), createdAt: now0 + (k === "b" ? 1 : 0) };
+      };
+      r = mk("up", d.typeUp, d.priceUp, "a"); extraRows.push(mk("low", d.typeLow, d.priceLow, "b"));
+    } else {
+      r = {
+        id: d.id || uid(), doctor: doctor, patient: patient, jaw: d.jaw, teeth: d.teeth.slice(), type: type,
+        qty: Math.max(1, Number(d.qty) || 1), price: Number(d.price) || 0, cur: d.cur, note: note, date: d.date || today(), createdAt: d.createdAt || Date.now()
+      };
+    }
     var wasEdit = !!d.id, back = wasEdit ? (ui.returnTab || "add") : "add";
     ui.editId = ""; ui.pendingDel = false; ui.returnTab = "add";
     ui.month = r.date.slice(0, 7); ui.doctor = r.doctor;
     ui.draft = newDraft(r.doctor, r.date);
     ui.tab = back;
-    saveRow(r).then(function () {
+    Promise.all([saveRow(r)].concat(extraRows.map(saveRow))).then(function () {
       toast(wasEdit ? t("t_saved") : t("t_added")); render();
       if (wasEdit) window.scrollTo(0, 0);
       var p = $("#f-patient"); if (p && !wasEdit) p.focus();
