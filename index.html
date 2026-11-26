@@ -1,16 +1,16 @@
 <!doctype html>
-<html lang="uz">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#1f4e8c">
-<meta name="mobile-web-app-capable" content="yes">
+<html lang="uz"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#14315c">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Protez Hisob">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" href="icon-192.png">
+<style>html,body{margin:0}</style>
 <title>Protez Hisob</title>
+<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -199,9 +199,6 @@ input::placeholder { color: var(--muted); opacity: .8; }
 .seg svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; vertical-align: -2px; margin-right: 4px; }
 .toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(150px + env(safe-area-inset-bottom, 0px)); z-index: 60; background: var(--ink); color: var(--bg); padding: 10px 16px; border-radius: 12px; font-size: 14px; max-width: 90%; }
 </style>
-<style>html { color-scheme: light dark; } body { margin: 0; }</style>
-</head>
-<body>
 
 <div class="wrap">
   <div class="top"><div class="kicker" id="kicker"></div><button class="back" id="back" hidden></button><h1 id="title"></h1></div>
@@ -221,7 +218,7 @@ input::placeholder { color: var(--muted); opacity: .8; }
       months: ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentabr", "Oktabr", "Noyabr", "Dekabr"],
       title: "Protez hisobi", tab_home: "Bosh", tab_add: "Yangi hisob", tab_report: "Hisob", tab_settings: "Sozlamalar",
       ttl_home: "Bosh sahifa", ttl_report: "Hisob", ttl_add: "Yangi hisob", ttl_settings: "Sozlamalar",
-      balance: "Umumiy balans", paid: "To'langan", debt: "Qarz", st_works: "Ishlar", st_clients: "Mijozlar", st_debtors: "Qarzdorlar", debts: "Qarzlar",
+      balance: "Umumiy balans", month_balance: "{m} balansi", total_debt_all: "Umumiy qarz (barcha oylar)", paid: "To'langan", debt: "Qarz", st_works: "Ishlar", st_clients: "Mijozlar", st_debtors: "Qarzdorlar", debts: "Qarzlar",
       empty_all: "Hali hech narsa kiritilmagan", seg_clients: "Mijozlar", seg_orders: "Buyurtmalar", search_ph: "Mijoz, bemor yoki ishni qidirish",
       no_works_month: "Bu oyda ish yo'q", no_orders: "Bu oyda buyurtma yo'q", month_acc: "Oy hisobi", month_paid: "Oy ichida to'langan",
       total_debt: "Umumiy qarz", advance: "Avans (ortiqcha to'lov)", works_title: "Ishlar ({n})", payments: "To'lovlar", add_pay: "To'lov qo'shish",
@@ -259,7 +256,7 @@ input::placeholder { color: var(--muted); opacity: .8; }
       months: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
       title: "Учёт протезов", tab_home: "Главная", tab_add: "Новый счёт", tab_report: "Счёт", tab_settings: "Настройки",
       ttl_home: "Главная", ttl_report: "Счета", ttl_add: "Новый счёт", ttl_settings: "Настройки",
-      balance: "Общий баланс", paid: "Оплачено", debt: "Долг", st_works: "Работы", st_clients: "Клиенты", st_debtors: "Должники", debts: "Долги",
+      balance: "Общий баланс", month_balance: "Баланс: {m}", total_debt_all: "Общий долг (все месяцы)", paid: "Оплачено", debt: "Долг", st_works: "Работы", st_clients: "Клиенты", st_debtors: "Должники", debts: "Долги",
       empty_all: "Пока ничего не добавлено", seg_clients: "Клиенты", seg_orders: "Заказы", search_ph: "Поиск: клиент, пациент, работа",
       no_works_month: "В этом месяце работ нет", no_orders: "В этом месяце заказов нет", month_acc: "Счёт за месяц", month_paid: "Оплачено за месяц",
       total_debt: "Общий долг", advance: "Аванс (переплата)", works_title: "Работы ({n})", payments: "Оплаты", add_pay: "Добавить оплату",
@@ -500,13 +497,18 @@ input::placeholder { color: var(--muted); opacity: .8; }
   function homeView() {
     var h = "";
     if (needSettings()) h += '<div class="banner"><span>' + esc(t("banner")) + '</span><button class="btn" data-tab="settings">' + esc(t("fill")) + '</button></div>';
-    var led = curList(rows, pays), clients = allClients();
+    var rsM = inMonth(), psM = pays.filter(function (p) { return (p.date || "").slice(0, 7) === ui.month; });
+    var led = curList(rsM, psM), all = curList(rows, pays), clients = allClients();
     var debtors = clients.map(function (n) { return [n, ledgerOf(n)]; }).filter(function (x) { return debtsOf(x[1]).length; })
       .sort(function (a, b) { return debtsOf(b[1])[0][3] - debtsOf(a[1])[0][3]; });
-    h += '<div class="hero"><div class="hero-l">' + esc(t("balance")) + '</div>' +
+    var activeM = {}; rsM.forEach(function (r) { activeM[r.doctor] = 1; });
+    var allDebt = debtText(all);
+    h += monthStepper();
+    h += '<div class="hero"><div class="hero-l">' + esc(t("month_balance", { m: monthLabel(ui.month) })) + '</div>' +
       (led.length ? led.map(function (x) { return '<div class="hero-v">' + esc(moneyC(x[1], x[0])) + '</div>'; }).join("") : '<div class="hero-v">' + esc(moneyC(0, "UZS")) + '</div>') +
-      '<div class="hero-sub"><div><small>' + esc(t("paid")) + '</small><b>' + esc(joinMoney(led, 2)) + '</b></div><div><small>' + esc(t("debt")) + '</small><b>' + esc(debtText(led) || moneyC(0, led.length ? led[0][0] : "UZS")) + '</b></div></div></div>';
-    h += '<div class="tiles"><div><b>' + rows.length + '</b><small>' + esc(t("st_works")) + '</small></div><div><b>' + clients.length + '</b><small>' + esc(t("st_clients")) + '</small></div><div><b>' + debtors.length + '</b><small>' + esc(t("st_debtors")) + '</small></div></div>';
+      '<div class="hero-sub"><div><small>' + esc(t("paid")) + '</small><b>' + esc(psM.length ? joinMoney(curList([], psM), 2) : "—") + '</b></div><div><small>' + esc(t("debt")) + '</small><b>' + esc(debtText(led) || moneyC(0, led.length ? led[0][0] : "UZS")) + '</b></div></div></div>';
+    h += '<div class="group"><div class="kv"><span>' + esc(t("total_debt_all")) + '</span><b class="' + (allDebt ? "debt" : "good") + '">' + esc(allDebt || moneyC(0, all.length ? all[0][0] : "UZS")) + '</b></div></div>';
+    h += '<div class="tiles"><div><b>' + rsM.length + '</b><small>' + esc(t("st_works")) + '</small></div><div><b>' + Object.keys(activeM).length + '</b><small>' + esc(t("st_clients")) + '</small></div><div><b>' + debtors.length + '</b><small>' + esc(t("st_debtors")) + '</small></div></div>';
     if (debtors.length) {
       h += '<div class="sec"><h2>' + esc(t("debts")) + '</h2></div><div class="group">' + debtors.slice(0, 5).map(function (x) {
         return '<button class="li" data-client="' + esc(x[0]) + '"><span class="li-main"><b>' + esc(x[0]) + '</b></span><span class="li-amt debt">' + esc(debtText(x[1])) + '</span><span class="chev">›</span></button>';
@@ -772,12 +774,6 @@ input::placeholder { color: var(--muted); opacity: .8; }
       y += rh; ctx.strokeStyle = "#ddd"; ctx.lineWidth = 0.7; ctx.beginPath(); ctx.moveTo(M, y); ctx.lineTo(W - M, y); ctx.stroke();
       qtySum += Number(r.qty) || 0;
     });
-    if (y + 80 + Math.max(0, tots.length - 1) * 34 > H - M) newPage();
-    y += 22; ctx.strokeStyle = INK; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(M, y - 12); ctx.lineTo(W - M, y - 12); ctx.stroke();
-    ctx.textAlign = "left"; ctx.fillStyle = MUT; ctx.font = "400 13px " + FONT; ctx.fillText(tr(L, "p_qty_total", { n: fmt(qtySum) }), M, y + 6);
-    ctx.textAlign = "right"; ctx.fillStyle = INK; ctx.font = "500 14px " + FONT; ctx.fillText(tr(L, "p_total"), W - M, y + 6);
-    ctx.font = "700 26px " + DISPLAY;
-    (tots.length ? tots : [["UZS", 0]]).forEach(function (x, k) { ctx.fillText(moneyC(x[1], x[0]), W - M, y + 36 + k * 34); });
     pages.forEach(function (c, i) {
       var g = c.getContext("2d"); g.setTransform(S, 0, 0, S, 0, 0); g.textAlign = "center"; g.fillStyle = "#777"; g.font = "400 11px " + FONT;
       g.fillText((settings.labName ? settings.labName + " · " : "") + (i + 1) + " / " + pages.length, W / 2, H - 22);
@@ -1103,5 +1099,5 @@ input::placeholder { color: var(--muted); opacity: .8; }
 })();
 </script>
 
-</body>
-</html>
+
+</body></html>
